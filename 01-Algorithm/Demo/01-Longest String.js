@@ -50,3 +50,24 @@ function findLongestWord3(str) {
 }
 
 findLongestWord3('Find the longest word in a string')
+
+
+// sort()
+
+function findLongestWord4(str) {
+  let arr = str.split(" ")
+  let str1 = arr.sort((a, b) => b.length - a.length)
+  let lenMax = str1[0].length
+  console.log(lenMax)
+  return lenMax
+}
+
+findLongestWord4("Find the longest word in a string")
+
+// sort() pop()
+function findLongestWord5(str) {
+  let arr = str.split(" ")
+  let str1 = arr.sort((a, b) => a.length - b.length)
+  let long = str1.pop().length
+  return long
+}
