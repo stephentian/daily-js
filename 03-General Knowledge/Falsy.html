@@ -1,0 +1,43 @@
+<!--
+ * author: stephentian
+ * email: stephentian@foxmail.com
+ * day: 2018-9-17
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div></div>
+  <script>
+    // A falsy value is a value that translates to 'false' when evaluated in a Boolean context
+    // Falsy(虚值)是在 Boolean 上下文中已认定可转换为‘假‘的值
+
+    // false
+    // null
+    // undefined
+    // 0
+    // NaN
+    // ''
+    // ""
+    // document.all
+
+    console.log('false: ', Boolean(false))
+    console.log('null: ', Boolean(null))
+    console.log('undefined: ', Boolean(undefined))
+    console.log('0: ', Boolean(0))
+    console.log('NaN: ', Boolean(NaN))
+    console.log("'': ", Boolean(''))
+    console.log("\"\": ", Boolean(""))
+    console.log('document.all: ', Boolean(document.all))
+    console.log('document: ', Boolean(document))
+  </script>
+</body>
+
+</html>
