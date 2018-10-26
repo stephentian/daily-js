@@ -2,6 +2,8 @@
 
 - **[Promise](#promise)**
 - **[Async + Await](#async--await)**
+- **[异步函数的比较](#异步函数的比较)**
+- **[避免太过循序](#避免太过循序)**
 
 ## Promise
 
@@ -201,3 +203,159 @@ async function e() {
 e().then(v => console.log(v))
   .catch(err => console.log(err))
 ```
+
+### 3. Async 其他函数的用法
+
+(1) 箭头函数
+
+```
+// map some URLs to json-promises
+const jsonPromises = urls.map(async url => {
+  const response = await fetch(url);
+  return response.json();
+});
+```
+
+> array.map(func) 不在乎我提供给它的是不是异步函数，只把它当作一个返回 Promise 的函数来看待
+> 它不会等到第一个函数执行完毕就会调用第二个函数
+
+(2) 对象方法
+
+```
+const storage = {
+  async getAvatar(name) {
+    const cache = await caches.open('avatars')
+    return cache.match(`/avatars/${name}.jpg`)
+  }
+}
+storage.getAvatar('abcsss').then()
+```
+
+(3) 类方法
+
+```
+class Storage {
+  constructor() {
+    this.cachePromise = caches.open('avatars')
+  }
+
+  async getAvatar(name) {
+    const cache = awat this.cachePromise
+    return cache.match(`/avatars/${name}.jpg`)
+  }
+}
+
+const storage = new Storage()
+storage.getAvatar('aabbb').then()
+```
+
+> 类构造函数以及 getter/settings 方法不能是异步的
+
+## 异步函数的比较
+
+假设我们想获取某个网址并以文本形式记录响应日志
+
+**Promise 编写代码**
+
+```
+function logFetch(url) {
+  return fetch(url)
+    .then(response => response.text())
+    .then(text => {
+      console.log(text);
+    }).catch(err => {
+      console.error('fetch failed', err);
+    });
+}
+```
+
+**利用异步函数 Async + Await 具有相同作用的代码**
+
+```
+async function logFetch(url) {
+    try {
+      const response = await fetch(url);
+      console.log(await response.text());
+    }
+    catch (err) {
+      console.log('fetch failed', err);
+    }
+}
+```
+
+> 代码行数虽然相同，但去掉了所有回调
+> 这可以提高代码的可读性，对不太熟悉 Promise 的人而言，帮助就更大了
+
+## 避免太过循序
+
+尽管编写的是看似同步的代码，也一定不要错失并行执行的机会
+
+```
+async function series() {
+  await wait(500);
+  await wait(500);
+  return "done!";
+}
+```
+
+以上代码执行完毕需要 1000 毫秒
+
+```
+asyc function parallel() {
+  const wait1 = wait(500)
+  const wait2 = wait(500)
+  await wait1
+  await wait2
+  return 'done!'
+}
+```
+
+以上代码只需 500 毫秒就可执行完毕，因为两个 wait 是同时发生的
+
+**按顺序输出获取的数据**
+假定我们想获取一系列网址，并尽快按正确顺序将它们记录到日志中
+
+```
+function logInOrder(urls) {
+  // fetch all the URLs
+  const textPromises = urls.map(url => {
+    return fetch(url).then(response => response.text());
+  });
+
+  // log them in order
+  textPromises.reduce((chain, textPromise) => {
+    return chain.then(() => textPromise)
+      .then(text => console.log(text));
+  }, Promise.resolve());
+}
+```
+
+如果使用异步函数改写以上代码，又容易让代码变得过于循序
+
+```
+async function logInOrder(urls) {
+  for (const url of urls) {
+    const response = await fetch(url);
+    console.log(await response.text());
+  }
+}
+```
+
+**推荐的编码方式** - 可读性强、并行效率高
+
+```
+async function logInOrder(urls) {
+  // fetch all the URLs in parallel
+  const textPromises = urls.map(async url => {
+    const response = await fetch(url);
+    return response.text();
+  });
+
+  // log them in sequence
+  for (const textPromise of textPromises) {
+    console.log(await textPromise);
+  }
+}
+```
+
+以并行方式获取和读取网址，但将“智能”的 reduce 部分替换成标准单调乏味但可读性强的 for 循环
