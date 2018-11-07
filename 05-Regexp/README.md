@@ -73,14 +73,27 @@ var reg = new Regep('/***/')
 
 ### 正则对象方法
 
-1. `test`: 匹配返回 true, 不匹配则返回 false
+#### 1. `test`
+匹配返回 true, 不匹配则返回 false
 ```
   var regex = /a/
   var string = 'aaa'
   regex.test(string)  // return true
 ```
-2. `exec`: 没有匹配是返回 null, 匹配时返回 `[0: (整个模式匹配的最长的字符串), 1: (第二长的字符串), 2...(没有则为 null), index: 0, input: ''(要匹配的字符串), length: 1(前面匹配到的个数)]`
+
+#### 2. `exec`
+没有匹配是返回 null, 匹配时返回
+```
+[0: (整个模式匹配的最长的字符串), 
+1: (第二长的字符串), 
+...(没有则为 null), 
+index: 0, 
+input: ''(要匹配的字符串), 
+length: 1(前面匹配到的个数)]
+```
 
 ### string 的方法
 
-1. `match`: 返回值和接受参数(正则)是否包含 g 有关
+1. **`match`**: 返回值和接受参数(正则)是否包含 g 有关
+ - 如果没有 `g` 标志, match 对 string 做一次匹配, 
+ - 如果有, 会返回一个数组
