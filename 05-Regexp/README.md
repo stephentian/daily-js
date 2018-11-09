@@ -6,7 +6,7 @@
 
 - **[前提知识](#前提知识)**
 - **[语法 Grammar](#语法-grammar)**
-- **[方法 Function](方法-function)**
+- **[方法 Function](#方法-function)**
 
 ## 前提知识
 
@@ -153,4 +153,17 @@ console.log(newstr)
 
 #### 4. `split`
 
-- 接受两个参数，返回一个数组
+- 接受两个参数, 返回一个数组
+- 第一个是用来分割字符串的字符或者正则
+- 第二个参数可选作为限制分割多少个字符，也是返回的数组的长度限制
+
+```
+var string = '123a4Bc56Def'
+console.log(string.split(/[a-z]+/i))
+// output
+["123", "4", "56", ""]
+
+console.log(string.split(/[a-z]+/i, 2))
+// output
+["123", "4"]
+```
