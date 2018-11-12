@@ -7,6 +7,7 @@
 - **[前提知识](#前提知识)**
 - **[语法 Grammar](#语法-grammar)**
 - **[方法 Function](#方法-function)**
+- **[常见用例](#常见用例)**
 
 ## 前提知识
 
@@ -149,6 +150,11 @@ var str = "John Smith"
 var newstr = str.replace(re, "$2, $1")
 console.log(newstr)
 // Smith, John
+
+var string = '2018-11-12'
+var today = string.replace(/-/g, '/')
+console.log(today)
+// '2018/11/12'
 ```
 
 #### 4. `split`
@@ -167,3 +173,15 @@ console.log(string.split(/[a-z]+/i, 2))
 // output
 ["123", "4"]
 ```
+
+## 常见用例
+
+1. var s1 = "get-element-by-id"; 给定这样一个连字符串，写一个function转换为驼峰命名法形式的字符串 getElementById
+```
+var f = function(str)
+return str.replace(//-\w/g, function(v) {
+  return x.slice(1).toUpperCase()
+})
+```
+
+2. 
