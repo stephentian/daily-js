@@ -9,3 +9,4 @@
 3. **[JS 常识 General Knowledge](https://github.com/stephentian/daily-js/tree/master/03-General%20Knowledge)**
 4. **[Promise & Async+Await](https://github.com/stephentian/daily-js/tree/master/04-Promise%20%26%20Async%2BAwait)**
 5. **[正则表达式 Regexp](https://github.com/stephentian/daily-js/tree/master/05-Regexp)**
+6. **[Date]()**
