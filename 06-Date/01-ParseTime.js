@@ -24,7 +24,10 @@ function parseTime(time, cFormat) {
     a: date.getDay()
   };
   const timeStr = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
+    console.log(result)
+    console.log(key)
     let value = formatObj[key];
+    console.log('value:', value)
     if (key === "a")
       return ["周一", "周二", "周三", "周四", "周五", "周六", "周日"][value - 1];
     if (result.length > 0 && value < 10) {
@@ -35,6 +38,6 @@ function parseTime(time, cFormat) {
   return timeStr;
 }
 
-console.log(parseTime('2018-11-13T07:36:20.370Z', '{y}-{m}-{d} {h}:{i}'))
-console.log(parseTime('1542094580370', '{y}-{m}-{d} {h}:{i}:{s}'))
+// console.log(parseTime('2018-11-13T07:36:20.370Z', '{y}-{m}-{d} {h}:{i}'))
+// console.log(parseTime('1542094580370', '{y}-{m}-{d} {h}:{i}:{s}'))
 console.log(parseTime('1542094580370', '{y}-{m}-{d} {h}:{i}:{s} {a}'))

@@ -155,6 +155,14 @@ var string = '2018-11-12'
 var today = string.replace(/-/g, '/')
 console.log(today)
 // '2018/11/12'
+
+string.replace(/-/g, function(result, key, index, group) {
+  // 输出 三个参数
+  // 匹配的正则
+  // 捕获到的字符
+  // 正则匹配到的每段字符的第一个字符的索引
+  // 用于匹配的字符串
+})
 ```
 
 #### 4. `split`
