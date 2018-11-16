@@ -184,12 +184,13 @@ console.log(string.split(/[a-z]+/i, 2))
 
 ## 常见用例
 
-1. var s1 = "get-element-by-id"; 给定这样一个连字符串，写一个function转换为驼峰命名法形式的字符串 getElementById
+1. 写一个 function , 将 'get-element-by-id', 转换为驼峰命名法形式的字符串 'getElementById'
 ```
-var f = function(str)
-return str.replace(//-\w/g, function(v) {
-  return x.slice(1).toUpperCase()
-})
+var f = function(str) {
+	return str.replace(/-\w/g, function(v) {
+  		return v.slice(1).toUpperCase()
+	})
+}
 ```
 
 2. 
