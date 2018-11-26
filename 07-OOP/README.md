@@ -3,6 +3,7 @@
 ## 目录
 
 - **[1. 创建对象](#1-创建对象)**
+- **[2. new 的作用](#2-new-的作用)**
 - **[2. 继承]()**
 - **[3. 构造函数里的 this 和 参数]()**
 - **[4. instanceof 和 constructor]()**
@@ -46,3 +47,26 @@ function Person(name, age) {
 }
 ```
 <font size="2">[不懂 this，你可以先去看：this]()</font>
+
+## 2. new 的作用
+
+```
+// 方法一：
+
+function Animals(name) {
+  this.name = name
+}
+
+var animal1 = new Animals('animal1')
+console.log('animal1:', animal1)
+
+// 方法二：
+var animal2 = {}
+
+animal2.__proto__ = Animals.prototype
+
+Animals.call(animal2, 'animal2')
+console.log('animal2:', animal2)
+```
+
+会发现，两次打印出的内容是一样的(除了 name )
