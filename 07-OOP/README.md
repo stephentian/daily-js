@@ -9,7 +9,7 @@
   * [原型 prototype](#原型-prototype)
 
 - **[2. new 的作用](#2-new-的作用)**
-- **[3. instanceof 和 constructor]()**
+- **[3. instanceof 和 constructor](#3-instanceof-和-constructor)**
 - **[4. prototype、\__proto__ 和 constructor]()**
 - **[5. 关于面向对象的一些方法](#5-关于面向对象的一些方法)**
 
