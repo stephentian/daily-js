@@ -3,31 +3,41 @@
 
 ## 目录
 
-- **[1. 创建对象](#1-创建对象)**
+**[1. 创建对象](#1-创建对象)**
   * [原始对象](#原始对象)
-  * [封装](#封装)
+  * [初级封装](#初级封装)
   * [构造函数](#构造函数)
   * [原型 prototype](#原型-prototype)
+  * [new 的作用](#new-的作用)
 
-- **[2. new 的作用](#2-new-的作用)**
-- **[3. instanceof 和 constructor](#3-instanceof-和-constructor)**
-- **[4. prototype、\__proto__ 和 constructor]()**
-- **[5. 关于面向对象的一些方法](#5-关于面向对象的一些方法)**
+**[2. 一些概念](#2-一些概念)**
+  * [instanceof](#instanceof)
+  * [constructor](#constructor)
+  * [instanceof 和 constructor](#instanceof-和-constructor)
+  * [isPrototypeOf](#isprototypeof)
+  * [hasOwnProperty](#hasownproperty)
+  * [prototype、\__proto__ 和 constructor](#prototype-__proto__-和-constructor)
+
+**[3. 封装]()**
+
+**[4. 继承]()**
+
+**[5. 多态]()**
 
 ## 前言
-
-面向对象拥有三大特征:
-1. 封装
-2. 继承
-3. 多态
  
 JavaScript是一款基于 `原型`模式的面向对象语言。
 
-我们可以把`原型(prototype)`理解为是一个**使用说明书**，每一个类型都会有一个对应的使用说明书，凡是使用说明上规定的成员，都是可以使用的。(记住这个概念，后面必考)
+我们可以把`原型(prototype)`理解为是一个**使用说明书**，每一个类型都会有一个对应的使用说明书，凡是使用说明上规定的成员(参数方法)，都是可以使用的。(记住这个概念，后面必考)
 
-比如电视器的说明书上规定了开机、关机、换台等行为，那么每一台电视机都会具备这些功能。
+比如电脑的说明书上规定了开机、关机等行为，配备了GTX1060显卡、I9处理器等参数，那么带有这个说明书的每一台电视机都会具备这些功能及配置。
 
-并且我们还可以通过 JavaScript 代码为指定的类型的使用说明添加新的参数和功能。
+记住面向对象拥有三大特征:
+1. 封装
+2. 继承
+3. 多态
+
+后面我们会讲。
 
 
 ## 1. 创建对象
@@ -50,8 +60,8 @@ console.log(obj.getSex())
 // 返回 male
 ```
 
-我们可以为该实例手动添加任何成员，可以是字符、数字、布尔甚至于一个方法，定义的方式，
-即可以用`实例名.成员名 = 内容`，也可以使用`实例名["成员名"] = 内容`。
+我们可以为该实例手动添加任何成员，可以是字符、数字、布尔甚至于一个方法。
+定义的方式，即可以用`实例名.成员名 = 内容`，也可以使用`实例名["成员名"] = 内容`。
 
 ```
 var str = "phone"
@@ -153,7 +163,7 @@ console.log(adam.sayName == eva.sayName)
 2. 无论实例怎样内容完全相同的成员，定义在prototype上
 
 
-## 2. new 的作用
+### new 的作用
 
 1. 定义一个函数 Animal
 
@@ -185,21 +195,19 @@ console.log('animal2:', animal2)
 会发现，两次打印出的内容是一样的(除了 name 属性)
 
 
-## 3. instanceof 和 constructor
+## 2. 一些概念
 
-### instanceof 验证对象的构造函数
+### instanceof
 
-使用 构造函数 创建一个 新的对象, 该对象被认为是构造函数的一个 实例(即 `instance`), `instanceof`就是来判断 该对象 是否由 某个构造函数 创建
+使用 构造函数 创建一个 新的对象, 该对象被认为是构造函数的一个 实例(即 `instance`), 
+`instanceof`就是来判断 该对象 是否由 某个构造函数 创建
 
+### constructor
 
-## 4. prototype、__proto__ 和 constructor
+### instanceof 和 constructor
 
+### isPrototypeOf
 
-## 5. 关于面向对象的一些方法
-### 1. instanceof
+### hasOwnProperty
 
-### 2. constructor
-
-### 3. isPrototypeOf
-
-### 4. hasOwnProperty
+### prototype、\__proto__ 和 constructor
