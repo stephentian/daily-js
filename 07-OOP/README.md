@@ -83,7 +83,7 @@ console.log(arr)
 展开 `__proto__`, 可以发现一系列数组(`pop, push, shift, unshift`)的方法, 原来操作 `arr` 的方法是从这来的
 
 
-### 封装
+### 初级封装
 
 为了能够得到更好的封装效果， 我们通过一个 function 来统一地构建一个对象的实例
 
