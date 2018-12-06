@@ -7,8 +7,9 @@
   * [原始对象](#原始对象)
   * [初级封装](#初级封装)
   * [构造函数](#构造函数)
+  * [实例化](#实例化)
   * [原型 prototype](#原型-prototype)
-  * [new 的作用](#new-的作用)
+  * [new](#new)
 
 **[2. 一些概念](#2-一些概念)**
   * [instanceof](#instanceof)
@@ -115,7 +116,11 @@ function Person(name, age) {
 ```
 <font size="2">[不懂 this，你可以先去看：this]()</font>
 
-Person 内部通过 this 关键字给实例增加了新的属性和方法。使用 new 来创造 Person 实例
+Person 内部通过 this 关键字给实例增加了新的属性和方法。
+
+### 实例化
+
+使用 new 来创造 Person 的一个对象，这个对象叫 ‘实例’，创造的过程，我们叫实例化
 
 可以想象成，我们就是造物主，在创造一个一个人，这些人有名字，有年龄，会说话
 我们可以创造两个例子 亚当和夏娃
@@ -163,7 +168,7 @@ console.log(adam.sayName == eva.sayName)
 2. 无论实例怎样内容完全相同的成员，定义在prototype上
 
 
-### new 的作用
+### new
 
 1. 定义一个函数 Animal
 
@@ -203,6 +208,8 @@ console.log('animal2:', animal2)
 `instanceof`就是来判断 该对象 是否由 某个构造函数 创建
 
 ### constructor
+
+
 
 ### instanceof 和 constructor
 
