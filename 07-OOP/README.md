@@ -7,7 +7,7 @@
   * [原始对象](#原始对象)
   * [初级封装](#初级封装)
   * [构造函数](#构造函数)
-  * [实例化](#实例化)
+  * [实例和实例化](#实例和实例化)
   * [原型 prototype](#原型-prototype)
   * [new](#new)
 
@@ -17,7 +17,7 @@
   * [instanceof 和 constructor](#instanceof-和-constructor)
   * [isPrototypeOf](#isprototypeof)
   * [hasOwnProperty](#hasownproperty)
-  * [prototype、\__proto__ 和 constructor](#prototype-__proto__-和-constructor)
+  * [prototype、\__proto__ 和 constructor-的区别](#prototype-__proto__-和-constructor-的区别)
 
 **[3. 封装]()**
 
@@ -118,7 +118,7 @@ function Person(name, age) {
 
 Person 内部通过 this 关键字给实例增加了新的属性和方法。
 
-### 实例化
+### 实例和实例化实例化
 
 使用 new 来创造 Person 的一个对象，这个对象叫 ‘实例’，创造的过程，我们叫实例化
 
@@ -210,6 +210,9 @@ console.log('animal2:', animal2)
 ### constructor
 
 
+```
+
+```
 
 ### instanceof 和 constructor
 
@@ -217,4 +220,4 @@ console.log('animal2:', animal2)
 
 ### hasOwnProperty
 
-### prototype、\__proto__ 和 constructor
+### prototype、\__proto__ 和 constructor 的区别
