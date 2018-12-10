@@ -4,52 +4,76 @@
  * day: 2018-11-28
  **/
 
-// 简单回调
+
+// 1. 函数内部
+
+// function f1() {
+//   return this
+// }
+// console.log('f1() === global:', f1() === global)
+
+
+
+// 2. 简单回调
 
 // 情形一
-var a = 'Window环境'
+// var a = 'Window环境'
 
-function foo() {
-  console.log(this.a)
-}
+// function foo() {
+//   console.log(this.a)
+// }
 
-var obj = {
-  a: 'Obj环境',
-  foo: foo
-}
+// var obj = {
+//   a: 'Obj环境',
+//   foo: foo
+// }
 
-function doFoo() {
-  obj.foo()
-}
+// function doFoo() {
+//   obj.foo()
+// }
 
-function doFoo2(fn) {
-  fn()
-}
+// function doFoo2(fn) {
+//   fn()
+// }
 
-doFoo()
-doFoo2(obj.foo)
+// doFoo()
+// doFoo2(obj.foo)
 
 // 情形二
-var a = 'Window环境'
+// var a = 'Window环境'
 
-var obj = {
-  a: 'Obj环境',
-  foo: function () {
-    console.log(this.a)
-  }
-}
+// var obj = {
+//   a: 'Obj环境',
+//   foo: function () {
+//     console.log(this.a)
+//   }
+// }
 
-function doFoo() {
-  obj.foo()
-}
+// function doFoo() {
+//   obj.foo()
+// }
 
-function doFoo2(fn) {
-  fn()
-}
+// function doFoo2(fn) {
+//   fn()
+// }
 
-doFoo()
-doFoo2(obj.foo)
+// doFoo()
+// doFoo2(obj.foo)
 
 // 两次的结果是一样的
 // 由此可以看出 this 指向函数 执行时的当前对象，而非声明环境
 // 这个方法还学到了: 如何让 函数里的 this, 指向全局
+
+
+// 3. call 和 apply
+var obj = {
+  a: 'Custom'
+}
+
+var a = 'Global'
+
+function whatsThis(arg) {
+  return this.a
+}
+
+console.log(whatsThis())
