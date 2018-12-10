@@ -212,7 +212,8 @@ console.log('animal2:', animal2)
 1. 用于返回创建该对象的函数
 
 ```
-object.constructor
+var object = []
+console.log(object.constructor) // Array
 ```
 
 2. 在**一个**类中只能有一个名为 “constructor” 的特殊方法, 用于创建和初始化类中创建的一个对象的一种特殊方法
@@ -226,6 +227,8 @@ class Polgon {
 ```
 
 ### instanceof 和 constructor
+
+
 
 ### isPrototypeOf
 
