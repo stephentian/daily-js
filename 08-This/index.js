@@ -10,7 +10,16 @@
 // function f1() {
 //   return this
 // }
+
+// // 浏览器环境
+// true
+// console.log('this === window:', this === window)
+
+// // node 环境
+// // true
 // console.log('f1() === global:', f1() === global)
+// // true
+// console.log(this === module.exports)
 
 
 
@@ -21,6 +30,7 @@
 
 // function foo() {
 //   console.log(this.a)
+//   console.log(global)
 // }
 
 // var obj = {
@@ -66,6 +76,8 @@
 
 
 // 3. call 和 apply
+// 在浏览器中
+
 var obj = {
   a: 'Custom'
 }
@@ -73,7 +85,16 @@ var obj = {
 var a = 'Global'
 
 function whatsThis(arg) {
-  return this.a
+  console.log(this.a)
 }
 
-console.log(whatsThis())
+whatsThis()
+// 'Global'
+
+whatsThis.call(obj)
+whatsThis.apply(obj)
+// 'Custom'
+
+// 3. node 环境中的 this
+
+// node 环境中把 var 去掉，将变量挂载到全局变量中

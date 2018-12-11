@@ -13,6 +13,8 @@
     <h1>This ---></h1>
   </div>
   <script>
+    // 全局中的 this
+    // true
     console.log('this === window:', this === window)
 
     function f1() {
@@ -32,6 +34,20 @@
       return this.a
     }
     console.log('调用 whatsThis(): ', whatsThis())
+    console.log('call: ', whatsThis.call(obj))
+    console.log('apply: ', whatsThis.apply(obj))
+
+    function add(c, d) {
+      console.log(this.a + this.b + c + d)
+    }
+
+    var o = {
+      a: 1,
+      b: 3
+    }
+
+    add.call(o, 5, 7)
+    add.apply(o, [0, 1])
   </script>
 </body>
 
