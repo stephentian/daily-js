@@ -13,41 +13,111 @@
     <h1>This ---></h1>
   </div>
   <script>
-    // 全局中的 this
+    // 1. 全局中的 this
     // true
-    console.log('this === window:', this === window)
+    // console.log('this === window:', this === window)
 
-    function f1() {
-      'use strict'
-      return this
-    }
-    console.log('严格模式下 this:', f1() === undefined)
-    console.log('作为对象的方法调用时，指向 window对象：', window.f1() === window)
+    // function f1() {
+    //   'use strict'
+    //   return this
+    // }
+    // console.log('严格模式下 this:', f1() === undefined)
+    // console.log('作为对象的方法调用时，指向 window对象：', window.f1() === window)
 
-    // call 和 apply
+
+    // 2. call 和 apply
+    // var a = 'Global'
+
+    // function whatsThis() {
+    //   return this.a
+    // }
+    // var obj = {
+    //   a: 'Custom',
+    //   f: whatsThis
+    // }
+
+    // console.log('obj.f(): ', obj.f())
+    // console.log('whatsThis.call: ', whatsThis.call(obj))
+    // console.log('whatsThis.apply: ', whatsThis.apply(obj))
+    // // 全为 'Custom'
+
+    // function add(c, d) {
+    //   console.log(this.a + this.b + c + d)
+    // }
+    // var o = {
+    //   a: 1,
+    //   b: 3
+    // }
+
+    // add.call(o, 5, 7)
+    // add.apply(o, [0, 1])
+
+
+    // 3. bind
+    // function f() {
+    //   return this.a
+    // }
+    // var obj1 = {
+    //   a: 'obj1 的 a'
+    // }
+    // var obj2 = {
+    //   a: 'obj2 的 a'
+    // }
+
+    // var firstBind = f.bind(obj1)
+    // console.log(firstBind())
+    // // 'obj1 的 a'
+    // // 创建了 firstBind 函数，和 f 具有相同函数体和作用域
+
+    // var secondBind = firstBind.bind(obj2)
+    // console.log(secondBind())
+    // // 'obj1 的 a'
+    // // 新函数中, this 被永久绑定到 bind 的第一个参数了
+
+    // var o = {
+    //   a: 'o 里面的 a',
+    //   f: f,
+    //   firstBind: firstBind,
+    //   secondBind: secondBind
+    // }
+    // console.log(o.f())
+    // // 'o 里面的 a'
+    // console.log(o.firstBind())
+    // console.log(o.secondBind())
+    // // 'obj1 里面的 a'
+
+
+    // 4. 原生实现 call 和 apply
+
+
+    // 5. 箭头函数里的  this
+    // var a = 'global a'
+    // var foo = (() => this.a)
+    // var obj = {
+    //   a: 'obj a',
+    //   f: foo
+    // }
+    // console.log('obj.f(): ', obj.f())
+    // console.log('foo.call(obj): ', foo.call(obj))
+    // console.log('foo.apply(obj): ', foo.apply(obj))
+    // // 全为 'global a'
+
+    var a = 'global a'
     var obj = {
-      a: 'Custom'
-    }
-    var a = 'Global'
-
-    function whatsThis() {
-      return this.a
-    }
-    console.log('调用 whatsThis(): ', whatsThis())
-    console.log('call: ', whatsThis.call(obj))
-    console.log('apply: ', whatsThis.apply(obj))
-
-    function add(c, d) {
-      console.log(this.a + this.b + c + d)
+      a: 'obj a',
+      f: function () {
+        var x = (() => this.a)
+        return x
+      }
     }
 
-    var o = {
-      a: 1,
-      b: 3
-    }
+    var fn1 = obj.f()
+    console.log('fn1: ', fn1())
+    // 'obj a'
 
-    add.call(o, 5, 7)
-    add.apply(o, [0, 1])
+    var fn2 = obj.f
+    console.log('fn2: ', fn2()())
+    // 'global'
   </script>
 </body>
 
