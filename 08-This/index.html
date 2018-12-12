@@ -11,6 +11,15 @@
 <body>
   <div>
     <h1>This ---></h1>
+    <ui>
+      <li><button>1</button></li>
+      <li><button>2</button></li>
+      <li><button>3</button></li>
+      <li><button>4</button></li>
+      <li><button>5</button></li>
+    </ui>
+    <button onclick="console.log((function() {return this})())">点击返回 this</button>
+    <button onclick="console.log(this.tagName.toUpperCase())">点击返回大写标签名</button>
   </div>
   <script>
     // 1. 全局中的 this
@@ -102,22 +111,47 @@
     // console.log('foo.apply(obj): ', foo.apply(obj))
     // // 全为 'global a'
 
-    var a = 'global a'
-    var obj = {
-      a: 'obj a',
-      f: function () {
-        var x = (() => this.a)
-        return x
+    // var a = 'global a'
+    // var obj = {
+    //   a: 'obj a',
+    //   f: function () {
+    //     var x = (() => this.a)
+    //     return x
+    //   }
+    // }
+
+    // var fn1 = obj.f()
+    // console.log('fn1: ', fn1())
+    // // 'obj a'
+
+    // var fn2 = obj.f
+    // console.log('fn2: ', fn2()())
+    // // 'global a'
+
+
+    // 6. DOM 中的 this
+    function bluify(e) {
+      // console.log(this === e.currentTarget)
+      // true
+
+      console.log(this === e.target)
+      // 当 currentTarget 和 target 是同一个对象时为 true
+      // 当前点击为 false
+
+      if (this.style.backgroundColor == 'blue') {
+        this.style.backgroundColor = 'red'
+      } else {
+        this.style.backgroundColor = 'blue'
       }
     }
 
-    var fn1 = obj.f()
-    console.log('fn1: ', fn1())
-    // 'obj a'
+    // 获取所有 li 元素
+    var elements = document.getElementsByTagName('li')
 
-    var fn2 = obj.f
-    console.log('fn2: ', fn2()())
-    // 'global'
+    // 当被点击时，元素变蓝色
+    for (var i = 0; i < elements.length; i++) {
+      elements[i].addEventListener('click', bluify, false)
+    }
   </script>
 </body>
 

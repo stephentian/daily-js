@@ -4,13 +4,15 @@
 - [简介](#简介)
 - [全局环境](#全局环境)
 - [函数内部](#函数内部)
-  * [非严格模式下](#非严格模式下)
+  * [非严格模式](#非严格模式)
   * [严格模式](#严格模式)
   * [call 和 apply](#call-和-apply)
   * [原生 js 实现 call 和 apply](#原生-js-实现-call-和-apply)
   * [bind](#bind)
   * [原生 js 实现 bind](#原生-js-实现-bind)
-  * [在箭头函数中](#在箭头函数中)
+  * [箭头函数中的 this](#箭头函数中的-this)
+  * [原型链中的 this](#原型链中的-this)
+  * [DOM 中的 this](#DOM-中的-this)
 
 
 
@@ -18,7 +20,7 @@
 
 在中文中，人们常常用“这个、这个”来指代一些东西，但是如果不加 “手势、眼神”等肢体语言的话，是无法理解的。
 在代码中，`this` 也一样，有全局环境和函数内，在严格模式和非严格模式，都有不同的作用；
-在一般情况下，**`this` 指向最后调用它的那个对象**
+在一般情况下，**`this` 只受最靠近的执行环境影响**
 
 ## 全局环境
 
@@ -34,7 +36,7 @@ console.log(this === module.exports) // true
 
 ## 函数内部
 
-### 在非严格模式下
+### 非严格模式
 
 this 默认指向全局对象 window
 ```
@@ -131,7 +133,8 @@ console.log(secondBind)
 
 ### 在箭头函数中
 
-在箭头函数中，`this` 与封闭词法上下文的 `this` 保持一致。在全局代码中，它将被设置为全局对象
+在箭头函数中，`this` 与封闭词法上下文的 `this` 保持一致。
+1. 箭头函数在全局代码中，`this` 将被设置为全局对象
 
 ```
 var a = 'global'
@@ -155,7 +158,8 @@ console.log('foo.apply(obj): ', foo.apply(obj))
 // 都为 'global a'
 ```
 
-对象里的 箭头函数 this
+2. 对象里的 箭头函数 this 将始终指向对象，
+但是若不执行情况下赋值给另一个函数， `this` 将指向另一个函数的执行环境
 
 ```
 var a = 'global a'
@@ -167,8 +171,62 @@ var obj = {
   }
 }
 
-console.log(obj.f())
+var fn1 = obj.f()
+console.log('fn1: ', fn1())
+// 'obj a'
 
-var fn = obj.f
-console.log(f()())
+var fn2 = obj.f
+console.log('fn2: ', fn2()())
+// 'global a'
+```
+
+### 原型链中的 this
+
+类似于在 原型链 中定义方法一样，`this` 指向调用该方法的对象
+
+```
+var obj = {
+  a: 1,
+  b: 2,
+  f: function() {
+    return this.a + this.b
+  }
+}
+
+var objChild = Object.create(obj)
+objChild.a = 1
+objChild.b = 4
+
+console.log(obj.f())
+// 3
+console.log(objChild.f())
+// 5
+// objChild 中没有 `f` 属性，于是在原型链中查找，在 `obj` 中找到 `f`，
+// 但是
+// 最先查找是以 `objChild.f` 开始查找，所以 `this` 指向 `objChild`
+```
+
+### DOM 中的 this
+
+当函数被用作事件处理函数时，它的 `this` 指向触发事件的元素
+
+```
+function bluify(e) {
+  // console.log(this === e.currentTarget)
+  // true
+
+  if (this.style.backgroundColor == 'blue') {
+    this.style.backgroundColor = 'red'
+  } else {
+    this.style.backgroundColor = 'blue'
+  }
+}
+
+// 获取所有 li 元素
+var elements = document.getElementsByTagName('li')
+
+// 当被点击时，元素变蓝色
+for (var i = 0; i < elements.length; i++) {
+  elements[i].addEventListener('click', bluify, false)
+}
 ```
