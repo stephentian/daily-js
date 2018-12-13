@@ -108,15 +108,15 @@
       console.log('this.a: ', this.a)
     }
 
-    Function.prototype.myCall = function (obj) {
+    Function.prototype.myCall = function (obj, ...args) {
       obj.f = this
-      var args = []
-      for (var i = 1; i < arguments.length; i++) {
-        args.push('arguments[' + i + ']')
-      }
-      console.log(arguments)
-      console.log(args)
-      obj.f()
+      // var args = []
+      // for (var i = 1; i < arguments.length; i++) {
+      //   args.push('arguments[' + i + ']')
+      // }
+      // console.log(arguments[2])
+      // console.log(args.toString())
+      obj.f(...args)
       delete obj.f
     }
     fn.myCall(obj, 1, 'abc')

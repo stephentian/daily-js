@@ -171,13 +171,51 @@ function fn(b, c) {
 
 Function.prototype.myCall = function(obj) {
   obj.f = this
-  var args =[]
-  for(var i = 1; i< arguments.length; i++) {
+  var args = []
+  for (var i = 1; i < arguments.length; i++) {
     args.push('arguments[' + i + ']')
   }
+
   console.log(args)
+  // [arguments[1], arguments[2]]
+
+  obj.f(args)
+  // '参数1： ["arguments[1]", "arguments[2]"]'
+  // '参数2： undefined'
+  // 失败！
+
+  obj.f(args.toString())
+  // 打印出 '参数1: arguments[1],arguments[2]'
+  // '参数2： undefined'
+  // 失败！
+
+  obj.f(arguments[1], arguments[2])
+  // 参数1:  1
+  // 参数2： abc
+  // 成功！
+
+  delete obj.f
 }
+
+fn.myCall(obj, 1, 'abc')
 ```
+
+6. 由上面可以知道， 我们已经把， 传入的参数筛选出来，但是如何将数组转换成多个参数传递给函数？
+有如下方案：
+- 使用 ES6 中的解构语法
+
+```
+Function.prototype.myCall = function (obj, ...args) {
+  obj.f = this
+  obj.f(...args)
+  delete obj.f
+}
+fn.myCall(obj, 1, 'abc')
+// 参数1:  1
+// 参数2： abc
+```
+
+
 ---
 
 ## bind
