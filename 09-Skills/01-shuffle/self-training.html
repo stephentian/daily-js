@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./training.js"></script>
+  <style>
+    .container {
+      width: 800px;
+      height: 500px;
+      border: 1px solid #333;
+      padding: 20px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+    }
+
+    .item-name {
+      overflow: hidden;
+      -ms-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .item-bar {
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div id="dataWrap">
+    </div>
+  </div>
+  <script>
+    // 实例化
+    let animate = new TopAnimate({
+      el: 'dataWrap',
+      options: {
+        title: 'The sales ranking sort',
+        labelWidth: 120, // 标签文字宽度，默认值为120
+        barHeight: 30, // 数值条高度，每行行高，默认值为30
+        topNum: 9, // 几条数据，展示top几数据，默认值为18
+        spacing: 10, // 每行数据间隔，默认值为10
+        maxWidth: 500, // 最大宽度，默认值为500
+        colors: ['#4792a7', '#cc6a61', '#dfc167', '#aac4db', '#f2f0e4', '#5a7c4a', '#c3a998', '#cfbbb0', '#cfbbb0'], // 颜色值
+      }
+    });
+    // 构造数据
+    const updateData = () => {
+      const data = [{
+          name: 'Google',
+          value: parseInt(Math.random() * 800)
+        },
+        {
+          name: 'Baidu',
+          value: parseInt(Math.random() * 800)
+        },
+        {
+          name: 'Alibaba',
+          value: parseInt(Math.random() * 800)
+        },
+        {
+          name: 'Tencent',
+          value: parseInt(Math.random() * 800)
+        },
+        {
+          name: 'NetBase',
+          value: parseInt(Math.random() * 800)
+        },
+        {
+          name: 'YAMAHA',
+          value: parseInt(Math.random() * 800)
+        },
+        {
+          name: 'Apple',
+          value: parseInt(Math.random() * 800)
+        },
+        {
+          name: 'Webstorm',
+          value: parseInt(Math.random() * 800)
+        },
+        {
+          name: 'VSCODE',
+          value: parseInt(Math.random() * 800)
+        },
+        {
+          name: 'MAterial',
+          value: parseInt(Math.random() * 800)
+        },
+        {
+          name: 'VSCODE',
+          value: parseInt(Math.random() * 800)
+        },
+        {
+          name: 'MAterial',
+          value: parseInt(Math.random() * 800)
+        }
+      ];
+      animate.update(data)
+    };
+    // 更新数据
+    setInterval(() => {
+      updateData()
+    }, 2000)
+  </script>
+</body>
+
+</html>

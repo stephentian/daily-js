@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>js 数组随机排序</title>
+  <style>
+    th {
+      font-weight: bold;
+    }
+
+    td {
+      text-align: right;
+      background-color: #efefef;
+    }
+
+    th {
+      background-color: #e0e0e0;
+      padding: 3px;
+    }
+
+    .bias {
+      background-color: orange;
+    }
+
+    .strongbias {
+      background-color: red;
+    }
+
+    input {
+      padding: 10px 10px;
+      border-radius: 3px;
+      border: 1px solid #ddd;
+      line-height: 20px;
+      background: -webkit-linear-gradient(top, #4387fd, #4683ea);
+      cursor: pointer;
+      font-size: 24px;
+      color: #fff;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <table id="results">
+    <tr>
+      <th style="background-color:#ccccff">结果</th>
+      <th>位置 0</th>
+      <th>位置 1</th>
+      <th>位置 2</th>
+      <th>位置 3</th>
+      <th>位置 4</th>
+      <th>位置 5</th>
+      <th>位置 6</th>
+      <th>位置 7</th>
+      <th>位置 8</th>
+      <th>位置 9</th>
+    </tr>
+    <tr>
+      <th>A出现次数</th>
+      <td class="strongbias">0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>B出现次数</th>
+      <td>0</td>
+      <td class="strongbias">0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>C出现次数</th>
+      <td>0</td>
+      <td>0</td>
+      <td class="bias">0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>D出现次数</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td class="bias">0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>E出现次数</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td class="bias">0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>F出现次数</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td class="bias">0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>G出现次数</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td class="bias">0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>H出现次数</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td class="bias">0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>I出现次数</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td class="strongbias">0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>J出现次数</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td class="strongbias">0</td>
+    </tr>
+  </table>
+  <div>
+    <input type="button" value="点击计算" onclick="recalc()">
+  </div>
+</body>
+<script>
+  var recalc = function () {
+    var countings = [{
+        A: 0,
+        B: 0,
+        C: 0,
+        D: 0,
+        E: 0,
+        F: 0,
+        G: 0,
+        H: 0,
+        I: 0,
+        J: 0
+      },
+      {
+        A: 0,
+        B: 0,
+        C: 0,
+        D: 0,
+        E: 0,
+        F: 0,
+        G: 0,
+        H: 0,
+        I: 0,
+        J: 0
+      },
+      {
+        A: 0,
+        B: 0,
+        C: 0,
+        D: 0,
+        E: 0,
+        F: 0,
+        G: 0,
+        H: 0,
+        I: 0,
+        J: 0
+      },
+      {
+        A: 0,
+        B: 0,
+        C: 0,
+        D: 0,
+        E: 0,
+        F: 0,
+        G: 0,
+        H: 0,
+        I: 0,
+        J: 0
+      },
+      {
+        A: 0,
+        B: 0,
+        C: 0,
+        D: 0,
+        E: 0,
+        F: 0,
+        G: 0,
+        H: 0,
+        I: 0,
+        J: 0
+      },
+      {
+        A: 0,
+        B: 0,
+        C: 0,
+        D: 0,
+        E: 0,
+        F: 0,
+        G: 0,
+        H: 0,
+        I: 0,
+        J: 0
+      },
+      {
+        A: 0,
+        B: 0,
+        C: 0,
+        D: 0,
+        E: 0,
+        F: 0,
+        G: 0,
+        H: 0,
+        I: 0,
+        J: 0
+      },
+      {
+        A: 0,
+        B: 0,
+        C: 0,
+        D: 0,
+        E: 0,
+        F: 0,
+        G: 0,
+        H: 0,
+        I: 0,
+        J: 0
+      },
+      {
+        A: 0,
+        B: 0,
+        C: 0,
+        D: 0,
+        E: 0,
+        F: 0,
+        G: 0,
+        H: 0,
+        I: 0,
+        J: 0
+      },
+      {
+        A: 0,
+        B: 0,
+        C: 0,
+        D: 0,
+        E: 0,
+        F: 0,
+        G: 0,
+        H: 0,
+        I: 0,
+        J: 0
+      }
+    ];
+    var letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+    for (var i = 0; i < 10000; i++) {
+      var r = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].sort(function () {
+        return .5 - Math.random();
+      });
+      for (var j = 0; j <= 9; j++) {
+        countings[j][r[j]]++;
+      }
+    }
+    for (var i = 0; i <= 9; i++) {
+      for (var j = 0; j <= 9; j++) {
+        document.getElementById('results').rows[i + 1].cells[j + 1].firstChild.data = countings[i][letters[j]];
+      }
+    }
+  }
+  recalc();
+</script>
+
+</html>
