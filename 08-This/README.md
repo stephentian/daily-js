@@ -1,22 +1,22 @@
 # This
 
 ## 目录
-- [简介](#简介)
+- [What is this ?](#what-is-this-)
 - [全局环境](#全局环境)
 - [函数内部](#函数内部)
   * [非严格模式](#非严格模式)
   * [严格模式](#严格模式)
-  * [call 和 apply](#call-和-apply)
-  * [原生 js 实现 call 和 apply](#原生-js-实现-call-和-apply)
-  * [bind](#bind)
-  * [原生 js 实现 bind](#原生-js-实现-bind)
-  * [箭头函数中的 this](#箭头函数中的-this)
-  * [原型链中的 this](#原型链中的-this)
-  * [DOM 中的 this](#DOM-中的-this)
+- [call 和 apply](#call-和-apply)
+- [原生 js 实现 call 和 apply](#原生-js-实现-call-和-apply)
+- [bind](#bind)
+- [原生 js 实现 bind](#原生-js-实现-bind)
+- [箭头函数中的 this](#箭头函数中的-this)
+- [原型链中的 this](#原型链中的-this)
+- [DOM 中的 this](#dom-中的-this)
 
 
 
-## 简介
+## What is this ?
 
 在中文中，人们常常用“这个、这个”来指代一些东西，但是如果不加 “手势、眼神”等肢体语言的话，是无法理解的。
 在代码中，`this` 也一样，有全局环境和函数内，在严格模式和非严格模式，都有不同的作用；
@@ -33,6 +33,8 @@ console.log(this === window)  // true
 // 在 Node 中
 console.log(this === module.exports) // true
 ```
+
+---
 
 ## 函数内部
 
@@ -55,9 +57,12 @@ console.log(f1() === global) // true
 
 this 默认为 `undefined`
 
-### call 和 apply
+---
 
-通过使用函数继承自 `Function.prototype` 的 `call` 或 `apply` 方法
+## call 和 apply
+
+某个函数通过使用继承自 `Function.prototype` 的 `call` 或 `apply` 方法，
+指定一个特定的的 `this` 和传入若干参数，然后调用
 
 1. 将 `this` 的指从一个上下文传到另一个
 
@@ -99,10 +104,83 @@ add.apply(o, [0, 1])
 // 5
 ```
 
-### 原生 js 实现 call 和 apply
+---
 
+## 原生 js 实现 call 和 apply
 
-### bind
+由上节内容可知 `call` 和 `apply` 的作用：
+- 改变 `this` 指向
+- 传入参数(可不传)
+- 执行函数
+
+1. 想看一般怎么改变 `this` 指向：
+
+```
+var a = 'global a'
+var obj1 = {
+  a: 'obj1 a'
+}
+var obj2 = {
+  a: 'obj2 a'
+}
+
+function f () {
+  console.log(this.a)
+}
+
+// 直接运行, 打印 'global a'
+f()
+```
+
+2. 如果 `obj1` 和 `obj2` 里有 `f` 就好了, 就可以直接调用, 就可以打印里面的 `a` 了.
+   可惜没有，我们自己造一个吧：
+
+```
+obj1.f = f
+obj1.f()
+// 'obj1 a'
+```
+
+3. 成功！但是有个缺点，obj1 里多了个 `f` 函数，改变了对象，所以我们要把它删除
+
+```
+obj1.f = f
+obj1.f()
+delete obj1.f
+```
+
+4. 第一步成功，我们可以实现一个 1.0 版本的 `call`, 并且用 `this` 来指代调用的函数
+
+```
+Function.prototype.myCall = function(obj) {
+  obj.f = this
+  obj.f()
+  delete obj.f
+}
+```
+
+5. 传入参数, 第一个为传入对象, 我们要让 `ob.f` 执行 `obj.f(argument[1], arguments[2], ...)`
+
+```
+// 新定义一个可接受参数的函数
+function fn(b, c) {
+  console.log('参数1: ', b)
+  console.log('参数2：', c)
+  console.log('this.a: ', this.a)
+}
+
+Function.prototype.myCall = function(obj) {
+  obj.f = this
+  var args =[]
+  for(var i = 1; i< arguments.length; i++) {
+    args.push('arguments[' + i + ']')
+  }
+  console.log(args)
+}
+```
+---
+
+## bind
 
 ES5 引入了 `Function.prototype.bind`。 
 `f.bind(someObject)` 会创建一个与 `f`具有相同函数体和作用域的函数。
@@ -129,9 +207,13 @@ console.log(secondBind)
 // 新函数中, this 被永久绑定到 bind 的第一个参数了
 ```
 
-### 原生 js 实现 bind
+---
 
-### 在箭头函数中
+## 原生 js 实现 bind
+
+---
+
+## 箭头函数中的 this
 
 在箭头函数中，`this` 与封闭词法上下文的 `this` 保持一致。
 1. 箭头函数在全局代码中，`this` 将被设置为全局对象
@@ -180,7 +262,9 @@ console.log('fn2: ', fn2()())
 // 'global a'
 ```
 
-### 原型链中的 this
+---
+
+## 原型链中的 this
 
 类似于在 原型链 中定义方法一样，`this` 指向调用该方法的对象
 
@@ -206,7 +290,9 @@ console.log(objChild.f())
 // 最先查找是以 `objChild.f` 开始查找，所以 `this` 指向 `objChild`
 ```
 
-### DOM 中的 this
+---
+
+## DOM 中的 this
 
 当函数被用作事件处理函数时，它的 `this` 指向触发事件的元素
 
@@ -230,3 +316,5 @@ for (var i = 0; i < elements.length; i++) {
   elements[i].addEventListener('click', bluify, false)
 }
 ```
+
+---
