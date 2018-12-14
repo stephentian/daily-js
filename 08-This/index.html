@@ -103,23 +103,52 @@
     }
 
     function fn(b, c) {
-      console.log('参数1: ', b)
-      console.log('参数2：', c)
-      console.log('this.a: ', this.a)
+      return this.a + ',' + b + ',' + c
     }
 
-    Function.prototype.myCall = function (obj, ...args) {
+    // ES6
+    // Function.prototype.myCall1 = function (obj, ...args) {
+    //   obj.f = this
+    //   var result = obj.f(...args)
+    //   delete obj.f
+    //   return result
+    // }
+    // console.log(fn.myCall1(obj, 1, 'abc'))
+
+    // ES5
+    Function.prototype.myCall2 = function (obj) {
+      var args = [],
+        argsLength = arguments.length,
+        obj = obj || window,
+        result;
       obj.f = this
-      // var args = []
-      // for (var i = 1; i < arguments.length; i++) {
-      //   args.push('arguments[' + i + ']')
-      // }
-      // console.log(arguments[2])
-      // console.log(args.toString())
-      obj.f(...args)
+      for (var i = 1; i < argsLength; i++) {
+        args.push('arguments[' + i + ']')
+      }
+      result = eval('obj.f(' + args + ')')
       delete obj.f
+      return result
     }
-    fn.myCall(obj, 1, 'abc')
+    console.log(fn.myCall2(obj, 2, 'EFG'))
+
+    Function.prototype.myApply = function (obj, arr) {
+      var obj = obj || window,
+        result,
+        argsLength = arguments.length;
+      obj.f = this
+      if (!arr) {
+        result = obj.f()
+      } else {
+        var args = []
+        for (var i = 1; i < argsLength; i++) {
+          args.push('arguments[' + i + ']')
+        }
+        result = eval('obj.f(' + args + ')')
+      }
+      delete obj.f
+      return result
+    }
+    console.log(fn.myApply(obj, 3, 'Apply'))
 
 
     // 5. 箭头函数里的  this
