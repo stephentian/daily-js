@@ -342,6 +342,24 @@ console.log(secondBind)
 
 ## 原生 js 实现 bind
 
+```
+Function.prototype.myBind = function() {
+  if(typeof this !== 'function') {
+    throw new Error('非函数不能调用 Function.prototype.bind')
+  } else {
+    var self = this,
+        args = Array.prototype.slice.call(arguments, 1)
+        F = function() {};
+    var fBound = function () {
+        var bindArgs = Array.prototype.slice.call(arguments);
+        self.apply(this instanceof self ? this : context, args.concat(bindArgs));
+    }
+    F.prototype = this.prototype
+    fBound.prototype = new F()
+    return fBound
+  }
+}
+```
 ---
 
 ## 箭头函数中的 this
