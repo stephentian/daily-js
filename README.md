@@ -13,7 +13,7 @@
 6. **[Date](https://github.com/stephentian/daily-js/tree/master/06-Date)**
 7. **[面向对象编程 OOP](https://github.com/stephentian/daily-js/tree/master/07-OOP)**
 8. **[this](https://github.com/stephentian/daily-js/tree/master/08-This)**
-9. **[Skills 一些技巧]()**
+9. **[Skills 一些技巧](https://github.com/stephentian/daily-js/tree/master/09-Skills)**
 
 
 ## 前言
