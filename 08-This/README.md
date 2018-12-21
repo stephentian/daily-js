@@ -117,7 +117,7 @@ add.apply(o, [0, 1])
 
 #### Call
 
-1.想看一般怎么改变 `this` 指向：
+**1.** 想看一般怎么改变 `this` 指向：
 
 ```
 var a = 'global a'
@@ -136,7 +136,7 @@ function f () {
 f()
 ```
 
-2.如果 `obj1` 和 `obj2` 里有 `f` 就好了, 就可以直接调用, 就可以打印里面的 `a` 了.
+**2.** 如果 `obj1` 和 `obj2` 里有 `f` 就好了, 就可以直接调用, 就可以打印里面的 `a` 了.
    可惜没有，我们自己造一个吧：
 
 ```
@@ -145,7 +145,7 @@ obj1.f()
 // 'obj1 a'
 ```
 
-3.成功！但是有个缺点，obj1 里多了个 `f` 函数，改变了对象，所以我们要把它删除
+**3.** 成功！但是有个缺点，obj1 里多了个 `f` 函数，改变了对象，所以我们要把它删除
 
 ```
 obj1.f = f
@@ -153,7 +153,7 @@ obj1.f()
 delete obj1.f
 ```
 
-4.第一步成功，我们可以实现一个 1.0 版本的 `call`, 并且用 `this` 来指代调用的函数
+**4.** 第一步成功，我们可以实现一个 1.0 版本的 `call`, 并且用 `this` 来指代调用的函数
 
 ```
 Function.prototype.myCall = function(obj) {
@@ -163,7 +163,7 @@ Function.prototype.myCall = function(obj) {
 }
 ```
 
-5.传入参数, 第一个为传入对象, 我们要让 `ob.f` 执行 `obj.f(argument[1], arguments[2], ...)`
+**5.** 传入参数, 第一个为传入对象, 我们要让 `ob.f` 执行 `obj.f(argument[1], arguments[2], ...)`
 
 ```
 // 新定义一个可接受参数的函数
@@ -184,26 +184,31 @@ Function.prototype.myCall = function(obj) {
   // [arguments[1], arguments[2]]
 
   obj.f(args)
+  // 情形一：直接传入是数组
   // '参数1： ["arguments[1]", "arguments[2]"]'
   // '参数2： undefined'
   // 失败！
 
   obj.f(args.toString())
+  // 情形二：传入字符串
   // 打印出 '参数1: arguments[1],arguments[2]'
   // '参数2： undefined'
   // 失败！
 
   obj.f(arg[0], args[1])
+  // 情形三：传入参数两个，但是都是字符串
   // 参数1:  arguments[1]
   // 参数2： arguments[2]
   // 失败！
 
   obj.f(arguments[1], arguments[2])
+  // 情形四：传参成功，但是参数不确定的话，这种方式就不能用
   // 参数1:  1
   // 参数2： abc
   // 成功！
 
   obj.f(eval(args[0]), eval(args[1]))
+  // 情形五：改进 '情形三'，使用 `eval` 函数，传参成功，但是参数不确定的话，这种方式也不能用
   // 参数1:  1
   // 参数2： abc
   // 成功！
@@ -213,14 +218,9 @@ Function.prototype.myCall = function(obj) {
 
 fn.myCall(obj, 1, 'abc')
 ```
-情形一：直接传入是数组；
-情形二：传入字符串；
-情形三：传入参数两个，但是都是字符串
-情形四：传参成功，但是参数不确定的话，这种方式就不能用
-情形五：改进 '情形三'，使用 `eval` 函数，传参成功，但是参数不确定的话，这种方式也不能用
 
 
-6.由上面 **情形三** 可以知道， 我们已经把 传入的参数 传递给函数了，但是传递的是字符串；
+**6.** 由上面 **情形三** 可以知道， 我们已经把 传入的参数 传递给函数了，但是传递的是字符串；
 我们可以结合 **情形五** 来改进
 
 - 使用 `eval`
@@ -253,38 +253,58 @@ fn.myCall(obj, 1, 'abc')
 // 成功！
 ```
 
-7.根据上面的版本进行优化
+**7.** 根据上面的版本进行优化
 (1) 如果第一个参数为null(没有传参)，this指向window
 (2) 函数调用要有返回值
-最终版本:
 
 ```
-Function.prototype.myCall = function(obj) {
+Function.prototype.myCall1 = function(obj) {
   var args = [],
       argsLength = arguments.length,
       obj = obj || window,
       result;
 
+  obj.f = this
+
   for (var i = 1; i < argsLength; i++) {
     args.push('arguments[' + i + ']')
-  }
-
-  obj.f = this
+  }  
   result = eval('obj.f(' + args + ')')
+
   delete obj.f
   return result
+}
+
+var a = 'global a'
+var obj = {
+  a: 'obj a'
 }
 
 function fn(b, c) {
   return this.a + ',' + b + ',' + c
 }
 
-console.log(fn.myCall2(obj, 2, 'EFG'))
-// 'obj a,2,EFG'
+console.log(fn.myCall1(obj, 2, 'EFG'))
+// 'obj a, 2, EFG'
 // 成功！
 ```
 
+**ES 6**
+```
+Function.prototype.myCall2 = function (obj) {
+  var obj = obj || window
+  obj.f = this
+
+  var args = [...arguments].sclice(1)
+  var result = obj.f(...args)
+
+  delete obj.f
+  return result
+}
+```
+
 #### Apply
+
 `apply` 的实现方式和 `call` 类似，可以先思考下 `apply` 和 `call` 的区别：
 `call` 方法接受的是若干个参数的列表，而 `apply` 方法接受的是一个包含多个参数的数组。
 所以要判断接收的参数是否为数组，还有循环数组要从 `0` 开始
@@ -295,6 +315,7 @@ Function.prototype.myApply = function (obj, arr) {
       result,
       argsLength = arguments.length;
   obj.f = this
+
   if (!arr) {
     result = obj.f()
   } else {
@@ -304,6 +325,25 @@ Function.prototype.myApply = function (obj, arr) {
     }
     result = eval('obj.f(' + args + ')')
   }
+
+  delete obj.f
+  return result
+}
+```
+
+**ES 6**
+```
+Function.prototype.myApply2 = function (obj) {
+  var obj = obj || window
+  obj.f = this
+
+  var reslut
+  if (argument[1]) {
+    result = obj.f(...argument[1])
+  } else {
+    result = obj.f()
+  }
+
   delete obj.f
   return result
 }
