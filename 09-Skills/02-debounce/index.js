@@ -15,13 +15,7 @@ window.onload = function () {
   }
   // 缺点是，第一次调用，也要等待。
 
-  // 第一次立即执行版
-  // 获取当前时间戳
-  function now() {
-    // '+'将 new Date() 由 'object' 转换为 'number'
-    return +new Date()
-  }
-
+  // 带有立即执行选项版
   // immediate 是否立即调用函数
   function decounce2(fn, wait = 50, immediate = true) {
     let timer, context, args
@@ -56,5 +50,10 @@ window.onload = function () {
         timer = later()
       }
     }
+  }
+  // 获取当前时间戳
+  function now() {
+    // '+'将 new Date() 由 'object' 转换为 'number'
+    return +new Date()
   }
 }
