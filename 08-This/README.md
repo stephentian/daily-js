@@ -15,6 +15,7 @@
 - [箭头函数中的 this](#箭头函数中的-this)
 - [原型链中的 this](#原型链中的-this)
 - [DOM 中的 this](#dom-中的-this)
+- [This 原理](#this-原理)
 
 
 
@@ -507,3 +508,10 @@ for (var i = 0; i < elements.length; i++) {
 ```
 
 ---
+
+## This 的原理
+
+想思考个问题：
+为什么 `obj.foo()` 就是在 `obj` 环境执行，而 `var foo = obj.foo`，`foo()` 就变成了全局环境执行？
+
+这跟内存里的数据结构有关系
