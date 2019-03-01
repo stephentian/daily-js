@@ -221,3 +221,23 @@ new SyncPromise((resolve, reject) => {
 // resolve 和 reject 都能准确输出
 
 // 发现存在的问题
+
+// 1. 异步不支持
+new SyncPromise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(2)
+  })
+}).then((data) => {
+  console.log(data)
+}, (reason) => {
+  console.log(reason)
+})
+// 同步的话, 会先执行 .then()
+// 而 status 还是 PENDING, 无法进入 FULFILLED
+
+// 2. then 没有容错
+new SyncPromise((resolve, reject) => {
+  resolve(1)
+}).then()
+
+// 比如没有给 then 传递参数, 程序就会报错
