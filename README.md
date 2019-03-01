@@ -8,7 +8,7 @@
 1. **[算法 Algorithm](https://github.com/stephentian/daily-js/tree/master/01-Algorithm)**
 2. **[高阶函数 Higher-order Function](https://github.com/stephentian/daily-js/tree/master/02-Higher-order%20Function)**
 3. **[JS 常识 General Knowledge](https://github.com/stephentian/daily-js/tree/master/03-General%20Knowledge)**
-4. **[Promise & Async+Await](https://github.com/stephentian/daily-js/tree/master/04-Promise%20%26%20Async%2BAwait)**
+4. **[异步 Async](https://github.com/stephentian/daily-js/tree/master/04-Async)**
 5. **[正则表达式 Regexp](https://github.com/stephentian/daily-js/tree/master/05-Regexp)**
 6. **[Date](https://github.com/stephentian/daily-js/tree/master/06-Date)**
 7. **[面向对象编程 OOP](https://github.com/stephentian/daily-js/tree/master/07-OOP)**
