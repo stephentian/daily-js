@@ -5,10 +5,14 @@
 **/
 
 // 手写一个 Promise
-// 首先会使用 Promise
+// 首先分析 Promise 内部结构
+
 
 // 1. 标准 Promise
-// 定义状态
+
+// 1.1 promise 主体函数
+
+// 1.1.1 定义状态
 // 等待
 // 成功
 // 失败
@@ -24,7 +28,7 @@
 //   self.onResolvedCallbacks = [] // 存放成功的回调函数数组
 //   self.onRejectedCallbacks = [] // 存放失败的回调函数数组
 
-//   // 1. resolve 方法
+//   // 1.1.2 resolve 方法
 //   // 只有 promise 状态为 pending, 可以转成成功状态
 //   // 并将成功的返回值赋值给 value
 //   // 如果已经是成功状态, 则什么都不做
@@ -44,7 +48,7 @@
 //     })
 //   }
 
-//   // 2. reject 方法
+//   // 1.1.3 reject 方法
 //   // 如果是 pending, 转成失败状态
 //   // 并将失败原因赋值给 value
 //   function reject(reason) {
@@ -57,7 +61,7 @@
 //     })
 //   }
 
-//   // 函数可能出现异常
+//   // 1.1.4 函数可能出现异常
 //   // 需要捕获,  如果出错了需要使用 reject
 //   try {
 //     executor(resolve, reject)
@@ -67,12 +71,74 @@
 // }
 
 
-// // then
+// 1.2 resolvePromise 函数
 
-// MyPromise.prototype.then = function (onFulfilled, onRejected) {
+// resolvePromise 针对 resolve 不同值的情况进行处理
+
+// 1.2.1 函数包含参数
+// promise2: promise1.then 返回的新的 promise 对象
+// x: promise1 中 onFulfilled 的返回值
+// resolve: promise2 的 resolve 方法
+// reject: promise2 的 reject 方法
+
+// function resolvePromise(promise2, x, resolve, reject) {
+//   // 如果 onFulfilled 返回的的 x 就是 promise2, 就导致循环引用出错
+//   if (promise2 === x) {
+//     return reject(new TypeError('循环使用'))
+//   }
+
+//   // 避免多次调用
+//   let called = false
+//   // 如果 x 是一个 promise 对象
+//   if (x instanceof MyPromise) {
+//     // 如果为等待状态需等待直至 x 被执行或拒绝, 并解析 y 值
+//     if (x.status == PENDING) {
+//       x.then(function (y) {
+//         resolvePromise(promise2, y, resolve, reject)
+//       }, reason => {
+//         reject(reason)
+//       })
+//     } else {
+//       // 如果 x 处于 执行状态/拒绝状态(值已经被解析为普通值), 用相同的值执行传递下去
+//       x.then(resolve, reject)
+//     }
+//     // 如果 x 为对象 或者 函数
+//   } else if (x != null && ((typeof x == 'objec') || (typeof x == 'function'))) {
+//     // 是否为 theneable 对象(具有 then 方法的对象/函数)
+//     try {
+//       let then = x.then
+//       if(typeof then === 'function') {
+//         then.call((x, y) => {
+//           if(called) return
+//           called = true
+//           resolvePromise(newPromise, y, resolve, reject)
+//         }, reason => {
+//           if(called) return
+//           called = true
+//           reject(reason)
+//         })
+//       } else {
+//         // 否说明为普通对象/函数, 直接 resolve
+//         resolve(x)
+//       }
+//     } catch (e) {
+//       if(called) return
+//       called = true
+//       reject(e)
+//     }
+//   } else {
+//     resolve(x)
+//   }
+// }
+
+// // 1.3 then 方法
+
 //   // onFulfilled 用来接收 promise 成功或者失败的返回值
 //   // 如果成功和失败的回调没有传, 则表示 then 没有逻辑, 会把值往后抛
 //   // 判断 then 接收的参数是否为 function, 是则忽略
+
+// MyPromise.prototype.then = function (onFulfilled, onRejected) {
+
 //   onFulfilled = typeof onFulfilled == 'function' ? onFulfilled : function (value) { return value }
 //   onRejected = typeof onRejected == 'function' ? onRejected : function (reason) { throw reason }
 
@@ -134,28 +200,8 @@
 //   }
 // }
 
-// function resolvePromise(promise2, x, resolve, reject) {
-//   if (promise2 === x) {
-//     return reject(new TypeError('循环使用'))
-//   }
 
-//   let called = false
-//   if (x instanceof MyPromise) {
-//     if (x.status == PENDING) {
-//       x.then(function (y) {
-//         resolvePromise(promise2, y, resolve, reject)
-//       }, reject)
-//     } else {
-//       x.then(resolve, reject)
-//     }
-//   } else if (x != null && ((typeof x == 'objec') || (typeof x == 'function'))) {
-//     try {
 
-//     } catch (error) {
-
-//     }
-//   }
-// }
 
 
 
@@ -241,3 +287,60 @@ new SyncPromise((resolve, reject) => {
 }).then()
 
 // 比如没有给 then 传递参数, 程序就会报错
+
+
+// 3. 实现异步 Promise
+
+const APENDING = 'pending'
+const AFULFILLED = 'fulfilled'
+const AREJECTED = 'rejected'
+function AsyncPromise() {
+  let self = this
+  self.status = APENDING
+  self.value = undefined
+  self.reason = undefined
+
+  function resolve(value) {
+    if (self.status === APENDING) {
+      self.status = AFULFILLED
+      self.value = value
+    }
+  }
+
+  function reject(reason) {
+    if (self.status === APENDING) {
+      self.status = AREJECTED
+      self.reason = reason
+    }
+  }
+
+  try {
+    fn(resolve, reject)
+  } catch (e) {
+    reject(e)
+  }
+}
+
+function resolveAsyncPromise(newPromise, x, resolve, reject) {
+  if (newPromise === x) {
+    return reject(new TypeError('循环使用'))
+  }
+}
+
+AsyncPromise.prototype.then = function (onFulfilled, onRejected) {
+  let self = this
+  let newPromise
+  onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : function (value) { return value }
+  onRejected = typeof onRejected === 'function' ? onRejected : function (reason) { throw reason }
+
+  if (self.status === APENDING) {
+    return newPromise = new AsyncPromise((resolve, reject) => {
+      setTimeout(() => {
+        try {
+          let x = onFulfilled(self.value)
+
+        }
+      })
+    })
+  }
+}
