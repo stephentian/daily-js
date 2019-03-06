@@ -14,6 +14,8 @@
 7. **[面向对象编程 OOP](https://github.com/stephentian/daily-js/tree/master/07-OOP)**
 8. **[this](https://github.com/stephentian/daily-js/tree/master/08-This)**
 9. **[Skills 一些技巧](https://github.com/stephentian/daily-js/tree/master/09-Skills)**
+10. **[设计模式 Design patterns]()**
+11. **[事件循环 Event Loop]()**
 
 
 ## 前言
