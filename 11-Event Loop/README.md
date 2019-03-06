@@ -1,6 +1,7 @@
 ## Event Loop
 > 事件循环
 
+****
 
 ### 进程和线程
 > process && thread
@@ -31,7 +32,27 @@
 
 1. js 自上而下解析, 将其中的同步任务按照执行顺序排列到执行栈中
 2. 程序调用外部 api , 如 ajax, setTimeout 等, 会将此类异步任务排列到 Event Table 中, 继续执行栈中的任务
-3. 当异步函数指定事件完成后, 将回调函数放到 事件队列(callback queue) 中
+3. 当异步函数指定事件完成后, 将回调函数放到 事件队列(Event Queue) 中
 4. 主线程将执行栈中的同步任务执行完, 检查 事件队列 中是否有任务,
  - 如果有, 将第一个事件对应的回调函数推送到执行栈中执行, 如果执行过程中遇到异步任务, 则继续将这个异步任务排列到事件队列中.
+ - 如果没有, 执行栈清空, 执行结束.
 5. 主线程每次执行栈清空, 就去事件队列检查是否有任务, 如果有, 就取出一个推送到执行栈中执行, 这个过程一直循环重复, 故被称为 Event Loop
+
+
+### 宏任务与微任务
+
+在上面第二步中, 异步任务有分成 宏任务 和 微任务(区别是执行顺序不同)
+
+宏任务: script 全部代码, setTimeout, setInterval, serImmediate, I/O(磁盘读写或网络通信), UI 渲染
+微任务: process.nextTick, Promise.then(Promise 得到回调后的事件), Object.observe(废弃), MutationObserver
+
+在 ES6 中, microtask 成为 jobs, 
+
+在一次事件循环中, 首先 JS 会执行一个宏任务(全部 JS 代码), 执行完成后判断微任务队列中是否有微任务,
+ - 如果有, 将它们依次全部执行完, 再开始下一个宏任务;
+ - 如果没有, 跳到执行下一个宏任务
+
+**优先级**
+
+process.nextTick 高于 Promise
+setTimeout 高于 setImmediate

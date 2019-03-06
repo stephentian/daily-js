@@ -60,15 +60,18 @@ setTimeout(function () {
     console.log('5')
   })
 })
-process.nextTick(function () {
-  console.log('6');
-})
+
 new Promise(function (resolve) {
   console.log('7');
   resolve();
 }).then(function () {
   console.log('8')
 })
+
+process.nextTick(function () {
+  console.log('6');
+})
+
 
 setTimeout(function () {
   console.log('9');
