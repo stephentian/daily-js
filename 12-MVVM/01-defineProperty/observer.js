@@ -53,8 +53,18 @@ Dep.prototype = {
   addSub: function (sub) {
     this.subs.push(sub)
   },
+  depend: function () {
+    Dep.target.addDep(this)
+  },
+  removeSub: function (sub) {
+    let index = this.subs.indexOf(sub)
+    if (index != -1) {
+      this.subs.splice(index, 1)
+    }
+  },
   notify: function () {
     this.subs.forEach(sub => {
+      // 调用订阅者 update 方法
       sub.update()
     })
   }
@@ -106,3 +116,5 @@ function defineReactive(data, key, val) {
     }
   })
 }
+
+Dep.target = null
