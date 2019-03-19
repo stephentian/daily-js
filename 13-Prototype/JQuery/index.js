@@ -4,7 +4,7 @@
 * day: 2019-3-19
 **/
 
-// JQuery
+// jQuery
 
 var JQuery = function (selector) {
   return new JQuery.fn.init(selector)
