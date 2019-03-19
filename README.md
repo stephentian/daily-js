@@ -5,17 +5,19 @@
 ## 目录
 
 0. **[前言](#前言)**
-1. **[算法 Algorithm](https://github.com/stephentian/daily-js/tree/master/01-Algorithm)**
-2. **[高阶函数 Higher-order Function](https://github.com/stephentian/daily-js/tree/master/02-Higher-order%20Function)**
-3. **[JS 常识 General Knowledge](https://github.com/stephentian/daily-js/tree/master/03-General%20Knowledge)**
-4. **[异步 Async](https://github.com/stephentian/daily-js/tree/master/04-Async)**
-5. **[正则表达式 Regexp](https://github.com/stephentian/daily-js/tree/master/05-Regexp)**
-6. **[Date](https://github.com/stephentian/daily-js/tree/master/06-Date)**
-7. **[面向对象编程 OOP](https://github.com/stephentian/daily-js/tree/master/07-OOP)**
-8. **[this](https://github.com/stephentian/daily-js/tree/master/08-This)**
-9. **[Skills 一些技巧](https://github.com/stephentian/daily-js/tree/master/09-Skills)**
-10. **[设计模式 Design patterns]()**
-11. **[事件循环 Event Loop]()**
+1. **[ES6]()**
+2. **[算法 Algorithm](https://github.com/stephentian/daily-js/tree/master/01-Algorithm)**
+3. **[高阶函数 Higher-order Function](https://github.com/stephentian/daily-js/tree/master/02-Higher-order%20Function)**
+4. **[JS 常识 General Knowledge](https://github.com/stephentian/daily-js/tree/master/03-General%20Knowledge)**
+5. **[异步 Async](https://github.com/stephentian/daily-js/tree/master/04-Async)**
+6. **[正则表达式 Regexp](https://github.com/stephentian/daily-js/tree/master/05-Regexp)**
+7. **[Date](https://github.com/stephentian/daily-js/tree/master/06-Date)**
+8. **[面向对象编程 OOP](https://github.com/stephentian/daily-js/tree/master/07-OOP)**
+9. **[this](https://github.com/stephentian/daily-js/tree/master/08-This)**
+10. **[Skills 一些技巧](https://github.com/stephentian/daily-js/tree/master/09-Skills)**
+11. **[设计模式 Design patterns]()**
+12. **[事件循环 Event Loop]()**
+13. **[MVVM]()**
 
 
 ## 前言

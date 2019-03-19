@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>箭头函数 this</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script>
+    function fn() {
+      console.log('real', this)
+      var arr = [1, 2, 3]
+      // js
+      arr.map(function (item) {
+        console.log('js', this)
+        return item + 1
+      })
+
+      // 箭头函数
+      arr.map(item => {
+        console.log('es6', this)
+        return item + 1
+      })
+    }
+    // fn.call({ a: 100 })
+    fn()
+  </script>
+</body>
+
+</html>
