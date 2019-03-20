@@ -8,19 +8,6 @@
 
 var zepto = {}
 
-zepto.init = function (selector) {
-  // 源码比较复杂, 处理情况很多, 这里简化举例
-  var slice = Array.prototype.slice
-  var dom = slice.call(document.querySelectorAll(selector))
-  return zepto.Z(dom, selector)
-}
-
-// 使用 zepto 时的 $
-
-var $ = function (selector) {
-  return zepto.init(selector)
-}
-
 // 构造函数
 
 function Z(dom, selector) {
@@ -34,6 +21,18 @@ function Z(dom, selector) {
 
 zepto.Z = function (dom, selector) {
   return new Z(dom, selector)
+}
+
+zepto.init = function (selector) {
+  // 源码比较复杂, 处理情况很多, 这里简化举例
+  var dom = document.querySelectorAll(selector)
+  return zepto.Z(dom, selector)
+}
+
+// 使用 zepto 时的 $
+
+var $ = function (selector) {
+  return zepto.init(selector)
 }
 
 $.fn = {
