@@ -4,3 +4,5 @@
 ## 目录
 
 * [数组随机排序](https://github.com/stephentian/daily-js/tree/master/09-Skills/01-shuffle)
+* [函数防抖]()
+* [红绿灯问题]()
