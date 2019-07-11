@@ -38,7 +38,7 @@ console.log(Student.prototype.isPrototypeOf(PrimaryStudent.prototype))
 
 // 当前的原型链是: 
 // student1 --> Student.prototype --> Object.prototype --> null
-// student2 --> PrimaryStudent.prototype --> Object.prototypr --> null
+// student2 --> PrimaryStudent.prototype --> Object.prototype --> null
 
 // 如果是 继承, 原型链应该为:
 // student2 --> PrimaryStudent.prototype --> Student.prototype --> Object.prototype --> null
