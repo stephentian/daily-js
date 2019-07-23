@@ -82,7 +82,7 @@ function showList (list) {
 #### 逆序打印链表
 
 ```
-function showReverseList() {
+function showReverseList(list) {
   let node = list.head,
       stack = []
   while(node) {
@@ -92,6 +92,25 @@ function showReverseList() {
   for(let len = stack.length - 1; len >=0; len --) {
     console.log(stack[len])
   }
+}
+```
+
+#### 单向链表逆序
+
+```
+function reverseList(list) {
+  let reList = list
+  let a = list.head
+      b = null
+  if (a === null) return
+
+  while(a.next != null) {
+    b = a.next
+    a.next = b.next
+    b.next = reList
+    reList = b
+  }
+  return reList
 }
 ```
 
