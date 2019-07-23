@@ -44,7 +44,7 @@ function LList () {
 ```
 function find (item) {
   var currentNode = this.head
-  while(currentNode.ele != item) {
+  while(currentNode.value != item) {
     currentNode = currentNode.next
   }
   return currentNode
@@ -67,6 +67,34 @@ function insert(newEle, item) {
 
 ## 链表的一些操作
 
+#### 打印链表
+
+```
+function showList (list) {
+  let node = list.head
+  while(node) {
+    console.log(node.value)
+    node = node.next
+  }
+}
+```
+
+#### 逆序打印链表
+
+```
+function showReverseList() {
+  let node = list.head,
+      stack = []
+  while(node) {
+    stack.push(node.value)
+    node = node.next
+  }
+  for(let len = stack.length - 1; len >=0; len --) {
+    console.log(stack[len])
+  }
+}
+```
+
 #### 链表转化成数组
 
 ```
@@ -75,7 +103,7 @@ function list2Array(list) {
     return []
   }
   var result = []
-  var p = list
+  var p = list.head
   while(p) {
     result.push(p.value)
     p = p.next
@@ -86,6 +114,7 @@ function list2Array(list) {
 // 递归
 function list2Array(list) {
   if (!list) return []
+
   var result = [list.value]
   var resultValues = list2Array(list.next)
   return result.concat(resultValues)
