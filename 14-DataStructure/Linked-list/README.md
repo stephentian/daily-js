@@ -62,3 +62,71 @@ function insert(newEle, item) {
   currentNode.next = newNode
 }
 ```
+
+
+
+## 链表的一些操作
+
+#### 链表转化成数组
+
+```
+function list2Array(list) {
+  if(!list) {
+    return []
+  }
+  var result = []
+  var p = list
+  while(p) {
+    result.push(p.value)
+    p = p.next
+  }
+  return result
+}
+
+// 递归
+function list2Array(list) {
+  if (!list) return []
+  var result = [list.value]
+  var resultValues = list2Array(list.next)
+  return result.concat(resultValues)
+}
+```
+
+
+#### 数组转链表
+
+```
+function array2List(arr) {
+  if(!arr || arr.length === 0) {
+    return null
+  }
+  var nodes = []
+  for(var i = 0; i < arr.length; i ++) {
+    var node = {}
+    node.value = arr[i]
+    node.next  = null
+    nodes.push(node)
+  }
+
+  for(var i = 0; i < nodes.length; i++) {
+    nodes[i].next = nodes[i+1]
+  }
+  return nodes[0]
+}
+
+// 不占额外空间
+function array2List(arr) {
+  if(!arr.length) return null
+  var node,
+      head = {value: arr[0], next: null}
+  var pnode = head // pnode 用来保存前一个节点
+  
+  for(var i = 1; i < arr.length; i++) {
+    node = {value: arr[i], next: null}
+    pnode.next = node
+    pnode = node
+  }
+  
+  return head
+}
+```
