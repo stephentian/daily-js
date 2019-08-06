@@ -29,8 +29,8 @@ Function.prototype.myApply2 = function (obj, arr) {
     result = obj.fn()
   } else {
     let args = []
-    for (let i = 1; i < argsLength; i++) {
-      args.push('arguments[' + i + ']')
+    for (let i = 0; i < argsLength; i++) {
+      args.push('arr[' + i + ']')
     }
     result = eval('obj.fn(' + args + ')')
   }
