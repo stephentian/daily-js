@@ -49,6 +49,62 @@ const quickSort = function (arr) {
 时间复杂度：O(n^2)
 空间复杂度：O(1)
 
+思路：
+1. 在未排序序列中找到最小（大）元素，存放到排序序列的起始位置；
+2. 从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾；
+3. 重复第二步，直到所有元素均排序完毕。
+
+```
+function selection(arr) {
+  if (arr.length <= 1) {
+    return arr
+  }
+  let minIndex, temp
+  for (let i = 0; i < arr.length - 1; i++) {
+    minIndex = i;
+    // 再循环一遍，找最小的数
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[j] < arr[minIndex]) {
+        minIndex = j
+      }
+    }
+    // 找到最小数后和 arr[i] 互换位置
+    temp = arr[i]
+    arr[i] = arr[minIndex]
+    arr[minIndex] = temp
+  }
+  return arr
+}
 ```
 
+
+### 希尔排序
+也称递减增量排序算法
+
+时间复杂度：O(n log n)
+空间复杂度：O(1)
+
+
+思路：
+在希尔排序中最重要的是分组，我们先找到一个间隔，每隔一定的间隔将这些数字排位一组
+对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止
+
+```
+function shellSort(arr) {
+  if (arr.length <= 1) {
+    return arr
+  }
+  // 算间隔
+  let len = Math.floor(arr.length / 2)
+  while (len > 0) {
+    for (let i = len; i < arr.length; i++) {
+      let temp = arr[i];
+      for (let j = i - len; j >= 0 && temp < arr[j]; j = j - len) {
+        arr[j + len] = arr[j]
+      }
+      arr[j + len] = temp
+    }
+    len = Math.floor(len / 2)
+  }
+}
 ```
