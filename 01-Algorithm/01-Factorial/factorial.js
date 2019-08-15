@@ -5,6 +5,8 @@
  **/
 
 // while
+// 阶乘
+
 function factorialWhile(num) {
   let result = 1
   while (num) {
@@ -41,7 +43,7 @@ console.log('factorialRec(5): ', factorialRec(5))
 // tail recursion 尾递归
 function factorialTail(num) {
   let total = 1
-  if (num === 1) return total
+  if (num === 0) return total
   return (num * factorialTail(num - 1))
 }
 console.log('factorialTail(6): ', factorialTail(6))
