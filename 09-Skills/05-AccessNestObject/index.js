@@ -4,11 +4,6 @@
  * day: 2020-04-29
  **/
 
-// javascript is wired
-// one of those things is the error when I try to access a nested object:
-
-// cannot read property 'xxx' of undefined
-
 const nestObject = {
   id: "1",
   name: "nestObject",
@@ -24,38 +19,25 @@ const nestObject = {
     name: "child1",
     child2: {
       name: "child2",
+      // child3: {
+      //   name: "child3",
+      // },
     },
   },
 }
 
-// to access the name of child1, the most usual way
-
 let child1Name = nestObject.child1.name
-
-// or
 
 child1Name = nestObject && nestObject.child1 && nestObject.child1.name
 
-// and if you want access the name of child2
-
 let child2Name
 
-// child2Name =
-//   nestObject && nestObject.child1 && nestObject.child1.child2
-//     ? nestObject.child1.child2.name
-//     : ""
+child2Name =
+  nestObject && nestObject.child1 && nestObject.child1.child2
+    ? nestObject.child1.child2.name
+    : ""
 
-// the code look realy messy
-
-// or you can pick this trick
-
-// child2Name = (((nestObject || {}).child1 || {}).child2 || {}).name
-
-// but if the data nested 5 or more levels deep, the code will more worse.
-// and you cannot access nested array with this trick
-
-// use reduce
-// reduce is a very powerful method and it can be used to access nested objects
+child2Name = (((nestObject || {}).child1 || {}).child2 || {}).name
 
 // pass the Access path as array
 const getNestObject = (nestObject, pathArr) => {
@@ -67,3 +49,31 @@ const getNestObject = (nestObject, pathArr) => {
 child2Name = getNestObject(nestObject, ["child1", "child2", "name"])
 
 console.log(child2Name)
+
+// ---- update nest object
+
+/**
+ * @param path: array
+ **/
+
+const setNestObject = (nestObject, pathArr, val) => {
+  if (!pathArr || pathArr.length === 0) {
+    return
+  }
+
+  // the end
+  if (pathArr.length === 1) {
+    nestObject[pathArr[0]] = val
+    return true
+  }
+
+  // if the property is a Object
+  // the property doesn't exists or not a Object
+  if (
+    !nestObject.hasOwnProperty(pathArr[0]) ||
+    typeof nestObject[pathArr[0]] !== "object"
+  ) {
+    nestObject[pathArr[0]] = typeof pathArr[1] === "number" ? [] : {}
+  }
+  return setNestObject(nestObject[pathArr[0]], pathArr.slice(1), val)
+}
