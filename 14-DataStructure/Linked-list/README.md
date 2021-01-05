@@ -1,6 +1,5 @@
 # 链表(linked-list)
 
-
 ## 介绍
 
 链表是一组节点组成的集合，每个节点都使用一个对象的引用来指向它的后一个节点。指向另一节点的引用叫做链。
@@ -13,9 +12,7 @@
 
 链表包含两个类, 一个是 Node 类, 来表示节点的数据; 一个是 LinkedList 类, 提供插入节点、删除节点等操作.
 
-
 ### Node 类
-
 
 ```
 function Node(ele) {
@@ -23,7 +20,6 @@ function Node(ele) {
   this.next = null
 }
 ```
-
 
 ### LinkedList 类
 
@@ -51,7 +47,6 @@ function find (item) {
 }
 ```
 
-
 #### 插入节点
 
 ```
@@ -62,8 +57,6 @@ function insert(newEle, item) {
   currentNode.next = newNode
 }
 ```
-
-
 
 ## 链表的一些操作
 
@@ -139,7 +132,6 @@ function list2Array(list) {
   return result.concat(resultValues)
 }
 ```
-
 
 #### 数组转链表
 
