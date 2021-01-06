@@ -54,3 +54,55 @@ let strLength:number = (str as string).length
 ```
 
 注意：如果在 TypeScript 使用 JSX 时，只有 `as` 语法断言时生效的。
+
+## 接口
+
+约束对象接口，不需要全部实现，只会检查必需属性。
+
+```ts
+interface LabelValue {
+    label: string
+}
+function printLabel(obj: LabelValue) {
+    console.log(obj.label)
+}
+```
+
+可选属性（`?:`）
+
+```ts
+interface LabelValue {
+    name?: string
+    label: string
+}
+```
+
+可读属性（`readonly`）
+
+```ts
+interface Point {
+    readonly x: number;
+    readonly y: number;
+}
+```
+
+## 类
+
+`class` 和 es6 里的功能相同，不过 `ts` 里创建类还会创建一个类的实例类型。
+
+`extends` 继承
+
+修饰符:
+
++ public
++ private
++ protected
++ readonly
+
+存取器：`get`，`set`
+
+静态属性：`static`
+
+抽象类：`abstract`
+
+因为创建类会生成一个类的实例类型，类可以用作 接口。
