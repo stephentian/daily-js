@@ -186,3 +186,25 @@ let deck: Deck = {
 ```
 
 ## 泛型
+
+泛型 Generics。像 C# 和 Java 这样的语言中，可以使用泛型来创建可重用的组件，一个组件可以支持多种类型的数据。
+
+在定义函数、接口或者类的时候，不需要先指定具体的类型，增加复用性。
+
+泛型变量
+
+```ts
+function identity<T>(arg: T): T {
+    return arg;
+}
+```
+
+泛型方法
+
+```ts
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+let myIdentity: <T>(arg: T) => T = identity;
+```
