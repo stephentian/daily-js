@@ -199,6 +199,18 @@ function identity<T>(arg: T): T {
 }
 ```
 
+泛型接口
+
+```ts
+interface GenericIdentityFn {
+    <T>(arg: T): T;
+}
+
+let myIdentity: GenericIdentityFn = function identity<T>(arg: T): T {
+    return arg;
+}
+```
+
 泛型方法
 
 ```ts
@@ -207,4 +219,45 @@ function identity<T>(arg: T): T {
 }
 
 let myIdentity: <T>(arg: T) => T = identity;
+```
+
+泛型类
+
+泛型类型放在类后面。
+
+```ts
+class GenericsClass<T> {
+    value: T,
+    add: (x: T, y: T) => T
+}
+```
+
+泛型约束
+
+对比操作 `any` 类型，想要限制函数去处理 `.length` 属性的类型。 定义一个接口来描述约束条件。使用这个接口和 `extends` 关键字来实现约束
+
+```ts
+interface Lengthwise {
+    length: number;
+}
+
+function loggingIdentity<T extends Lengthwise>(arg: T): T {}
+```
+
+! 传入符合约束类型的值，必须包含必须的属性
+
+## 装饰器
+
+装饰器 Decorators，为我们在类的声明及成员上通过元编程语法添加标注提供了一种方式。
+
+它能够被附加到类声明，方法， 访问符，属性或参数上。
+
+简而言之：用于扩展类、类的属性或者方法。
+
+```ts
+// vue @Props
+export default class App extends Vue {
+    @Props({ type: Boolean, required: true })
+    msg!: Boolean
+}
 ```
