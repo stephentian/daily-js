@@ -260,4 +260,62 @@ export default class App extends Vue {
     @Props({ type: Boolean, required: true })
     msg!: Boolean
 }
+// 事件处理：@Emit
+// 变更监测：@Watch
+```
+
+类装饰器
+
+类装饰器应用于类构造函数，可以用来监视，修改或替换类定义。
+
+！类装饰器不能用在声明文件中( .d.ts)，也不能用在任何外部上下文中（比如declare的类）。
+
+```ts
+// 当 @sealed 被执行的时候，它将密封此类的构造函数和原型。
+function sealed(constructor: Function) {
+    Object.seal(constructor);
+    Object.seal(constructor.prototype);
+}
+
+@sealed
+class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+    greet() {
+        return "Hello, " + this.greeting;
+    }
+}
+```
+
+方法装饰器
+
+被应用到方法的 属性描述符上，可以用来监视，修改或者替换方法定义。
+
+3 个参数：
+
+1. 对于静态成员来说是类的构造函数，对于实例成员是类的原型对象。
+2. 成员名字。
+3. 成员的属性描述符。
+
+### 属性装饰器
+
+属性装饰器声明在一个属性声明之前（紧靠着属性声明）。
+
+2个参数：
+
+1. 对于静态成员来说是类的构造函数，对于实例成员是类的原型对象。
+2. 成员的名字。
+
+## 类型声明
+
+模块补充
+
+```ts
+declare module "vue/types/vue" {
+    interface Vue {
+        $axios: AxiosInstance
+    }
+}
 ```
