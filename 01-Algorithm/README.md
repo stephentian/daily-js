@@ -2,25 +2,28 @@
 
 ## 目录
 
-- **[Recursion 递归]()**
-- **[Factorial 阶乘](https://github.com/stephentian/daily-js/blob/master/01-Algorithm/01-Factorial/factorial.js)**
-- **[Palindrome 回文](https://github.com/stephentian/daily-js/blob/master/01-Algorithm/02-Palindrome/01-Palindrome.js)**
-- **[SubString 字符串切割](https://github.com/stephentian/daily-js/blob/master/01-Algorithm/03-SubString/SubString.js)**
-- **[Sort 排序]()**
-
+- **[Recursion 递归](https://github.com/stephentian/daily-js/tree/master/01-Algorithm/01-Recursion)**
+- **[Factorial 阶乘](https://github.com/stephentian/daily-js/blob/master/01-Algorithm/02-Factorial/factorial.js)**
+- **[Palindrome 回文](https://github.com/stephentian/daily-js/blob/master/01-Algorithm/03-Palindrome/01-Palindrome.js)**
+- **[SubString 字符串切割](https://github.com/stephentian/daily-js/blob/master/01-Algorithm/04-SubString/SubString.js)**
+- **[Sort 排序](https://github.com/stephentian/daily-js/tree/master/01-Algorithm/05-Sort)**
+- **[Cache Algorithm 缓存算法](https://github.com/stephentian/daily-js/tree/master/01-Algorithm/06-Cache%20Algorithm)**
 
 ## 排序
 
 ### 冒泡排序
+
 时间复杂度：O(n^2)
 空间复杂度：O(1)
 
 思路：
+
 1. 比较相邻元素。如果前一个比后一个大，就交换他们。
 2. 对每一对相邻元素遍历比对大小，做完之后，最后的元素会是最大的数，把它抛出。
 3. 对除去最后元素的数组（因为最后是最大）重复以上步骤。
 4. 比对的数组越来越小，直到没有数字比对。
-```
+
+```js
 function bubbleSort(arr) {
   if (arr.length <= 1) {
     return arr
@@ -39,12 +42,13 @@ function bubbleSort(arr) {
 
 ```
 
-
 ### 快速排序
+
 时间复杂度：O(n log n)
 空间复杂度：O(log n)
 
 思路：
+
 1. 先从数列中取出一个数作为“基准”；
 2. 将比这个“基准”小的数全放到“基准”的左边，大于或等于的数全放到“基准”的右边，。
 3. 再对左右区间重复第二步，直到各区间只有一个数。
@@ -70,17 +74,18 @@ const quickSort = function (arr) {
 }
 ```
 
-
 ### 选择排序
+
 时间复杂度：O(n^2)
 空间复杂度：O(1)
 
 思路：
+
 1. 在未排序序列中找到最小（大）元素，存放到排序序列的起始位置；
 2. 从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾；
 3. 重复第二步，直到所有元素均排序完毕。
 
-```
+```js
 function selection(arr) {
   if (arr.length <= 1) {
     return arr
@@ -103,19 +108,19 @@ function selection(arr) {
 }
 ```
 
-
 ### 希尔排序
+
 也称递减增量排序算法
 
 时间复杂度：O(n log n)
 空间复杂度：O(1)
 
-
 思路：
+
 1. 在希尔排序中最重要的是分组，我们先找到一个间隔，每隔一定的间隔将这些数字排位一组；
 2. 对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止。
 
-```
+```js
 function shellSort(arr) {
   if (arr.length <= 1) {
     return arr

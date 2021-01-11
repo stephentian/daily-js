@@ -10,6 +10,7 @@
 
 参考官方文档: [TypeScript 文档简介](https://www.tslang.cn/docs/home.html)
 
++ 声明类型
 + 基础类型
 + 接口
 + 类
@@ -17,6 +18,14 @@
 + 泛型
 + 装饰器
 + 类型声明
+
+## 声明类型
+
++ 类型别名（ `type sn = number | string;` )
++ 接口声明（ `interface I { x: number[]; }` ）
++ 类声明（ `class C { }` ）
++ 枚举声明（ `enum E { A, B, C }` ）
++ 指向某个类型的 `import` 声明
 
 ## 基础类型
 
