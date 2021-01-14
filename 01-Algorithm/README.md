@@ -44,7 +44,7 @@ function bubbleSort(arr) {
 
 ### 快速排序
 
-时间复杂度：O(n log n)
+时间复杂度：O(n*log n)
 空间复杂度：O(log n)
 
 思路：
@@ -53,7 +53,7 @@ function bubbleSort(arr) {
 2. 将比这个“基准”小的数全放到“基准”的左边，大于或等于的数全放到“基准”的右边，。
 3. 再对左右区间重复第二步，直到各区间只有一个数。
 
-```
+```js
 const quickSort = function (arr) {
   if (arr.length <= 1) {
     return arr

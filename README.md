@@ -4,8 +4,9 @@
 
 ## 目录
 
-0. **[前言](#前言)**
-0. **[ES6]()**
+**[前言](#前言)**
+
+0. **[ES6](https://github.com/stephentian/daily-js/tree/master/00-ES6)**
 1. **[算法 Algorithm](https://github.com/stephentian/daily-js/tree/master/01-Algorithm)**
 2. **[高阶函数 Higher-order Function](https://github.com/stephentian/daily-js/tree/master/02-Higher-order%20Function)**
 3. **[JS 常识 General Knowledge](https://github.com/stephentian/daily-js/tree/master/03-General%20Knowledge)**
@@ -15,12 +16,12 @@
 7. **[面向对象编程 OOP](https://github.com/stephentian/daily-js/tree/master/07-OOP)**
 8. **[this](https://github.com/stephentian/daily-js/tree/master/08-This)**
 9. **[Skills 一些技巧](https://github.com/stephentian/daily-js/tree/master/09-Skills)**
-10. **[设计模式 Design patterns]()**
-11. **[事件循环 Event Loop]()**
-12. **[MVVM]()**
-13. **[原型 Prototype]()**
-14. **[数据结构]()**
-
+10. **[设计模式 Design patterns](https://github.com/stephentian/daily-js/tree/master/10-Design-patterns)**
+11. **[事件循环 Event Loop](https://github.com/stephentian/daily-js/tree/master/11-Event%20Loop)**
+12. **[MVVM](https://github.com/stephentian/daily-js/tree/master/12-MVVM)**
+13. **[原型 Prototype](https://github.com/stephentian/daily-js/tree/master/13-Prototype)**
+14. **[数据结构](https://github.com/stephentian/daily-js/tree/master/14-DataStructure)**
+15. **[TypeScript](https://github.com/stephentian/daily-js/tree/master/15-TypeScript)**
 
 ## 前言
 
@@ -31,8 +32,6 @@ JavaScript 和 C++、Java、C# 等语言一样，是一种语言。他和其它�
 我们平时所使用到的修改DOM的功能，仅仅是浏览器开发商提供给开发者所使用的. 那么只要浏览器开发商乐意，他们还可以提供更多的功能给我们使用。我们也可以理解为，我们写的JavaScript脚本是在浏览器厂商允许的范围内，对浏览器进行二次开发
 
 若浏览器允许，JavaScript 还可以调用运行机器上的 ActiveX 组件（比如使用 Scripting.FileSystemObject 对客户端电脑上的文件进行各种操作）. 遗憾的是，由于加载 ActiveX 组件可以变向的调用控件台等存在风险的行为，因此大部分浏览器已经禁止了这项操作
-
-
 
 ### 解释型语言和编译型语言
 
@@ -62,6 +61,7 @@ JavaScript 语言就好比是我们说的“四川话”、“北京话”、“
 随着技术的发展，大家也正在不停地出台各种规范，希望能有一天所有浏览器都能识别完全一样的JavaScript代码
 
 **浏览器厂商比较常见的差异有：**
+
 1. 创建XmlHttpRequest的方式不同
 2. 创建Xml解析器的方式不同
 3. innerText和innerHtml可能存在的差异
