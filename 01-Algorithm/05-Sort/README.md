@@ -40,6 +40,55 @@ function bubbleSort(arr) {
 
 ```
 
+### 改进
+
+1. 记录最后一次交换的位置 pos。因为最后一次交换位置之后项，都已经排好序了，所以下次遍历的时候
+  遍历到这个位置 pos 就好了，不需要遍历整个数组。
+
+    ```js
+    function bubbleSort(arr) {
+      let i = arr.length - 1;
+      while(i > 0) {
+        let pos = 0
+        for(let j = 0; j < i; j++) {
+          if  (arr[j] > arr[j+1]) {
+            pos = j
+            // 交换
+            let temp = arr[j]
+            arr[j] = arr[j+1]
+            arr[j+1] = temp
+          }
+        }
+        i = pos
+      }
+    }
+    ```
+
+2. 冒泡排序每一次排序可以得到最大值，或者最小值。可以考虑利用每次排序使用正向和反向冒泡，这样一次可以得出最大值和最小值；排序次数可以少几乎一半。
+
+    ```js
+    function bubbleSort(arr) {
+      let min = 0
+      let max = arr.length - 1
+      let temp, j
+      while(min < max) {
+        for(j = min; j<max; j++) {
+          if  (arr[j] > arr[j+1]) {
+            // 前比后大，交换
+          }
+        }
+        max-- // 找出来最大值, 最大值位置往前移
+        for(j=max;j>min;j--) {
+          if  (arr[j]<arr[j-1]) {
+            // 前比后小，交换
+          }
+        }
+        min++
+      }
+      return arr
+    }
+    ```
+
 ## 快速排序
 
 时间复杂度：O(n*log n)
@@ -68,7 +117,7 @@ const quickSort = function (arr) {
       right.push(arr[i])
     }
   }
-  return quickSort((left).concat([pivot], quickSort(right)))
+  return quickSort(left).concat([pivot], quickSort(right))
 }
 ```
 
