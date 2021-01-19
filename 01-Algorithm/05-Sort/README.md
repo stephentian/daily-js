@@ -150,7 +150,7 @@ function insertSort(arr) {
     let key = arr[i]
     let j = i - 1
     while (j >= 0 && arr[j] > key) {
-      arr[j+1] = key
+      arr[j+1] = arr[j]
       j--
     }
     arr[j+1] = key
@@ -196,6 +196,8 @@ function selection(arr) {
 
 ## 希尔排序
 
+> shell sort
+
 也称递减增量排序算法
 
 时间复杂度：O(n log n)
@@ -223,5 +225,53 @@ function shellSort(arr) {
     }
     len = Math.floor(len / 2)
   }
+}
+```
+
+## 归并排序
+
+> merge sort
+
+归并排序采用分治法（Divide and Conquer）。将已有序的子序列合并，得到完全游戏的序列。
+
+将两个有序表合成有序表，成为 2-路归并。
+
+思路：
+
+1. 将长度 n 的序列分为两个长度为 n/2 的子序列；
+2. 对两个子序列才有归并排序。
+
+```js
+function mergeSort(arr) {
+  if (arr.length <= 1) {
+    return arr
+  }
+  let len = Math.floor(arr.length / 2)
+  let left = arr.slice(0, len)
+  let right = arr.slice(len)
+
+  return merge(mergeSort(left), merge(right))
+}
+
+function merge(left, right) {
+  let res = []
+
+  while(left.length && right.length) {
+    if (left[0] < right[0]) {
+      res.push(left.shift())
+    } else {
+      res.push(right.shift())
+    }
+  }
+
+  while (left.length) {
+        result.push(left.shift())
+  }
+  
+  while (right.length) {
+        result.push(right.shift()
+  }
+  
+  return res
 }
 ```
