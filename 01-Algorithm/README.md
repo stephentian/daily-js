@@ -8,3 +8,4 @@
 - **[SubString 字符串切割](https://github.com/stephentian/daily-js/blob/master/01-Algorithm/04-SubString/SubString.js)**
 - **[Sort 排序](https://github.com/stephentian/daily-js/tree/master/01-Algorithm/05-Sort)**
 - **[Cache Algorithm 缓存算法](https://github.com/stephentian/daily-js/tree/master/01-Algorithm/06-Cache%20Algorithm)**
+- **[Search Algorithm 查找算法](./07-Search%20Algorithm)**
