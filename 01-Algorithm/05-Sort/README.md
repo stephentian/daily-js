@@ -2,17 +2,17 @@
 
 ## 目录
 
-+ [冒泡排序](#冒泡排序)
+- [冒泡排序](#冒泡排序)
 
-+ [快速排序](#快速排序)
+- [快速排序](#快速排序)
 
-+ [插入排序](#插入排序)
+- [插入排序](#插入排序)
 
-+ [选择排序](#选择排序)
+- [选择排序](#选择排序)
 
-+ [希尔排序](#希尔排序)
+- [希尔排序](#希尔排序)
 
-+ [归并排序](#归并排序)
+- [归并排序](#归并排序)
 
 ## 冒泡排序
 
@@ -42,61 +42,60 @@ function bubbleSort(arr) {
   }
   return arr
 }
-
 ```
 
 ### 改进
 
 1. 记录最后一次交换的位置 pos。因为最后一次交换位置之后项，都已经排好序了，所以下次遍历的时候
-  遍历到这个位置 pos 就好了，不需要遍历整个数组。
+   遍历到这个位置 pos 就好了，不需要遍历整个数组。
 
-    ```js
-    function bubbleSort(arr) {
-      let i = arr.length - 1;
-      while(i > 0) {
-        let pos = 0
-        for(let j = 0; j < i; j++) {
-          if  (arr[j] > arr[j+1]) {
-            pos = j
-            // 交换
-            let temp = arr[j]
-            arr[j] = arr[j+1]
-            arr[j+1] = temp
-          }
-        }
-        i = pos
-      }
-    }
-    ```
+   ```js
+   function bubbleSort(arr) {
+     let i = arr.length - 1
+     while (i > 0) {
+       let pos = 0
+       for (let j = 0; j < i; j++) {
+         if (arr[j] > arr[j + 1]) {
+           pos = j
+           // 交换
+           let temp = arr[j]
+           arr[j] = arr[j + 1]
+           arr[j + 1] = temp
+         }
+       }
+       i = pos
+     }
+   }
+   ```
 
 2. 冒泡排序每一次排序可以得到最大值，或者最小值。可以考虑利用每次排序使用正向和反向冒泡，这样一次可以得出最大值和最小值；排序次数可以少几乎一半。
 
-    ```js
-    function bubbleSort(arr) {
-      let min = 0
-      let max = arr.length - 1
-      let temp, j
-      while(min < max) {
-        for(j = min; j<max; j++) {
-          if  (arr[j] > arr[j+1]) {
-            // 前比后大，交换
-          }
-        }
-        max-- // 找出来最大值, 最大值位置往前移
-        for(j=max;j>min;j--) {
-          if  (arr[j]<arr[j-1]) {
-            // 前比后小，交换
-          }
-        }
-        min++
-      }
-      return arr
-    }
-    ```
+   ```js
+   function bubbleSort(arr) {
+     let min = 0
+     let max = arr.length - 1
+     let temp, j
+     while (min < max) {
+       for (j = min; j < max; j++) {
+         if (arr[j] > arr[j + 1]) {
+           // 前比后大，交换
+         }
+       }
+       max-- // 找出来最大值, 最大值位置往前移
+       for (j = max; j > min; j--) {
+         if (arr[j] < arr[j - 1]) {
+           // 前比后小，交换
+         }
+       }
+       min++
+     }
+     return arr
+   }
+   ```
 
 ## 快速排序
 
-时间复杂度：O(n*log n)
+时间复杂度：O(n\*log n)
 空间复杂度：O(log n)
 
 思路：
@@ -146,14 +145,14 @@ function insertSort(arr) {
     return arr
   }
 
-  for (let i=1; i< arr.length; i++) {
+  for (let i = 1; i < arr.length; i++) {
     let key = arr[i]
     let j = i - 1
     while (j >= 0 && arr[j] > key) {
-      arr[j+1] = arr[j]
+      arr[j + 1] = arr[j]
       j--
     }
-    arr[j+1] = key
+    arr[j + 1] = key
   }
 
   return arr
@@ -178,7 +177,7 @@ function selection(arr) {
   }
   let minIndex, temp
   for (let i = 0; i < arr.length - 1; i++) {
-    minIndex = i;
+    minIndex = i
     // 再循环一遍，找最小的数
     for (let j = i + 1; j < arr.length; j++) {
       if (arr[j] < arr[minIndex]) {
@@ -206,7 +205,7 @@ function selection(arr) {
 思路：
 
 1. 在希尔排序中最重要的是分组，我们先找到一个间隔，每隔一定的间隔将这些数字排位一组；
-2. 对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止。
+2. 对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至 1 时，整个文件恰被分成一组，算法便终止。
 
 ```js
 function shellSort(arr) {
@@ -217,7 +216,7 @@ function shellSort(arr) {
   let len = Math.floor(arr.length / 2)
   while (len > 0) {
     for (let i = len; i < arr.length; i++) {
-      let temp = arr[i];
+      let temp = arr[i]
       for (let j = i - len; j >= 0 && temp < arr[j]; j = j - len) {
         arr[j + len] = arr[j]
       }
@@ -248,15 +247,15 @@ function mergeSort(arr) {
   }
   let len = Math.floor(arr.length / 2)
   let left = arr.slice(0, len)
-  let right = arr.slice(len)
+  let right = arr.slice(len, arr.length)
 
-  return merge(mergeSort(left), merge(right))
+  return merge(mergeSort(left), mergeSort(right))
 }
 
 function merge(left, right) {
   let res = []
 
-  while(left.length && right.length) {
+  while (left.length && right.length) {
     if (left[0] < right[0]) {
       res.push(left.shift())
     } else {
@@ -265,13 +264,13 @@ function merge(left, right) {
   }
 
   while (left.length) {
-        result.push(left.shift())
+    res.push(left.shift())
   }
-  
+
   while (right.length) {
-        result.push(right.shift()
+    res.push(right.shift())
   }
-  
+
   return res
 }
 ```
