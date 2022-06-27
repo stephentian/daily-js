@@ -1,5 +1,21 @@
 # TypeScript
 
+- [TypeScript](#typescript)
+  - [介绍](#介绍)
+  - [引导](#引导)
+  - [声明类型](#声明类型)
+  - [基础类型](#基础类型)
+  - [接口](#接口)
+  - [类](#类)
+  - [函数](#函数)
+    - [函数类型](#函数类型)
+    - [参数](#参数)
+    - [`this`](#this)
+  - [泛型](#泛型)
+  - [装饰器](#装饰器)
+    - [属性装饰器](#属性装饰器)
+  - [类型声明](#类型声明)
+
 ## 介绍
 
 官方：TypeScript 是 JavaScript 类型的超集，它可以编译成纯 JavaScript。
@@ -10,40 +26,40 @@
 
 参考官方文档: [TypeScript 文档简介](https://www.tslang.cn/docs/home.html)
 
-+ 声明类型
-+ 基础类型
-+ 接口
-+ 类
-+ 函数
-+ 泛型
-+ 装饰器
-+ 类型声明
+- 声明类型
+- 基础类型
+- 接口
+- 类
+- 函数
+- 泛型
+- 装饰器
+- 类型声明
 
 ## 声明类型
 
-+ 类型别名（ `type sn = number | string;` )
-+ 接口声明（ `interface I { x: number[]; }` ）
-+ 类声明（ `class C { }` ）
-+ 枚举声明（ `enum E { A, B, C }` ）
-+ 指向某个类型的 `import` 声明
+- 类型别名（ `type sn = number | string;` )
+- 接口声明（ `interface I { x: number[]; }` ）
+- 类声明（ `class C { }` ）
+- 枚举声明（ `enum E { A, B, C }` ）
+- 指向某个类型的 `import` 声明
 
 ## 基础类型
 
-+ number
-+ string
-+ boolean
-+ `[]` / Array 数组
-+ Tuple 元组
-+ enum 枚举
-+ any 未指定类型
-+ 无类型 Void
-  + 用于函数，表示没有返回值
-  + 用于变量，表示它只能为 `undefined` 和 `null`
-+ null
-+ undefined
-+ never 永不存在的值的类型
-  + 用于函数，表示存在无法到达的终点
-+ object
+- number
+- string
+- boolean
+- `[]` / Array 数组
+- Tuple 元组
+- enum 枚举
+- any 未指定类型
+- 无类型 Void
+  - 用于函数，表示没有返回值
+  - 用于变量，表示它只能为 `undefined` 和 `null`
+- null
+- undefined
+- never 永不存在的值的类型
+  - 用于函数，表示存在无法到达的终点
+- object
 
 类型断言
 
@@ -104,10 +120,10 @@ interface Point {
 
 修饰符:
 
-+ public
-+ private
-+ protected
-+ readonly
+- public
+- private
+- protected
+- readonly
 
 存取器：`get`，`set`
 
