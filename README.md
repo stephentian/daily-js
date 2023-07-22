@@ -1,6 +1,6 @@
 # daily-js
 
-> JavaScript 教程
+> JavaScript Book
 
 ## 目录
 
